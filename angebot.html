@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de-CH" class="starker-schein">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <script src="passwort.js"></script>
+  <!-- Sicherheit: Die Seite darf nur eigene Dateien laden (keine fremden Skripte oder Dienste) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Angebot – Sharleena</title>
+  <script src="js/thema.js"></script>
+  <link rel="alternate" hreflang="en" href="angebot-en.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+  <!-- Hintergrund: Foto hinter Milchglas. aria-hidden="true" und alt="" heissen:
+       nur Schmuck, Screenreader überspringen das.
+       FOTOS: Es bleibt das Foto, das zuletzt auf der Startseite erschien (wählt js/main.js).
+       Hier steht nur das Foto für Besuche ohne JavaScript. -->
+  <div class="buehne vertraeumt" aria-hidden="true" style="--fokus-x: 57%; --fokus-y: 45%">
+    <div class="fotos">
+      <!-- Ohne src: js/main.js setzt das Foto ein. So wird nur EIN Foto geladen. -->
+      <img class="foto foto-milchig" alt="">
+      <img class="foto foto-scharf" alt="">
+      <!-- Nur für Besuche ohne JavaScript -->
+      <noscript>
+        <img class="foto foto-milchig" src="bilder/sternbluete.jpg" alt="">
+        <img class="foto foto-scharf" src="bilder/sternbluete.jpg" alt="">
+      </noscript>
+    </div>
+    <div class="milch"></div>
+    <div class="schwaden"><span></span><span></span><span></span></div>
+    <div class="korn"></div>
+  </div>
+
+  <!-- Wellen-Filter: verzerrt das Foto sanft wie Wasser. Die Stärke ("scale")
+       setzt js/main.js, wenn die Maus sich bewegt – sonst ist sie 0. -->
+  <svg class="filter-vorlage" aria-hidden="true" focusable="false">
+    <filter id="welle" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="2" seed="4" result="rauschen">
+        <animate attributeName="baseFrequency" dur="16s" values="0.008 0.02; 0.01 0.025; 0.008 0.02" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="rauschen" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <!-- Flausch-Filter für die Kreise. Jeder hat zwei Schritte:
+       1. «form»: grosse, sanfte Wellen – der Kreis wird unregelmässig, wie gewachsen
+       2. «haar»: feines Rauschen – rauht den Rand zu Härchen auf
+       scale = wie stark; baseFrequency = wie fein (kleiner = grössere Wellen) -->
+  <svg class="filter-vorlage" aria-hidden="true" focusable="false">
+    <!-- weich-flauschig (Standard) -->
+    <filter id="flausch" x="-25%" y="-25%" width="150%" height="150%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.009" numOctaves="2" seed="2" result="welle"/>
+      <feDisplacementMap in="SourceGraphic" in2="welle" scale="38" xChannelSelector="R" yChannelSelector="G" result="form"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="2" seed="3" result="rauschen"/>
+      <feDisplacementMap in="form" in2="rauschen" scale="14" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="1.1"/>
+    </filter>
+    <!-- extra fluffig: stark aufgerauht und weichgezeichnet, wie Watte -->
+    <filter id="flausch-stark" x="-25%" y="-25%" width="150%" height="150%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" seed="8" result="welle"/>
+      <feDisplacementMap in="SourceGraphic" in2="welle" scale="40" xChannelSelector="R" yChannelSelector="G" result="form"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.45" numOctaves="3" seed="9" result="rauschen"/>
+      <feDisplacementMap in="form" in2="rauschen" scale="24" xChannelSelector="R" yChannelSelector="G"/>
+      <feGaussianBlur stdDeviation="1.4"/>
+    </filter>
+  </svg>
+
+  <header class="site-header">
+    <a class="logo" href="index.html">Sharleena</a>
+    <div class="kopf-rechts">
+      <nav aria-label="Hauptnavigation">
+        <ul class="nav-list">
+          <li><a href="angebot.html" aria-current="page">Angebot</a></li>
+          <li><a href="preise.html">Preise</a></li>
+          <li><a href="ueber-mich.html">Über mich</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+        </ul>
+      </nav>
+      <!-- Sprache und Tag/Nacht: eigene kleine Gruppe rechts neben dem Menü, blass wie der Titel der Startseite -->
+      <div class="schalter">
+        <!-- Sprachschalter: ein normaler Link zur gleichen Seite in der anderen Sprache (geht auch ohne JavaScript).
+             Sichtbar nur die Abkürzung; aria-label lässt Screenreader das ganze Wort vorlesen -->
+        <a class="sprache" href="angebot-en.html" lang="en" hreflang="en" aria-label="English">ENG</a>
+        <span class="trenner" aria-hidden="true"></span>
+        <!-- Tag/Nacht-Schalter: Sonne und Mond. Das Symbol des aktuellen Modus ist hervorgehoben.
+             aria-label gibt Screenreadern den Namen, aria-pressed sagt, ob der Nachtmodus an ist. -->
+        <button class="thema-schalter" type="button" aria-pressed="false" aria-label="Nachtmodus" hidden>
+          <svg class="sonne" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>
+          </svg>
+          <svg class="mond" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="inhalt" class="seite seite-kreise">
+    <!-- Titel nur für Screenreader: jede Seite braucht genau eine Hauptüberschrift -->
+    <h1 class="nur-vorlesen">Angebot</h1>
+    <ul class="kreise">
+      <!-- Jeder Kreis ist ein Knopf. Ein Klick öffnet den Text darunter als Pop-up
+           («popover» – geht ohne JavaScript, schliesst mit Esc oder Klick daneben).
+           Farbe des Kreises: kreis-rosa (alle Kreise sind hellrosa).
+           Charakter: kreis-sanft, kreis-fluffig oder kreis-wolkig. -->
+      <li class="kreis-platz" id="klassische-massage">
+        <button class="kreis kreis-rosa kreis-sanft" type="button" popovertarget="text-klassische-massage">Klassische<br>Massage</button>
+        <section class="karte popup" id="text-klassische-massage" popover aria-labelledby="titel-klassische-massage">
+          <!-- X zum Schliessen; aria-label sagt Screenreadern, was der Knopf tut -->
+          <button class="popup-zu" type="button" popovertarget="text-klassische-massage" popovertargetaction="hide" aria-label="Schliessen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+          <h2 id="titel-klassische-massage">Klassische Massage</h2>
+          <p>Ergänzt mit Schröpfen und Fussreflexzonen, abgestimmt auf dich.</p>
+          <p>In meinen Massagen gebe ich deinem Körper Impulse für Entspannung, Selbstregulation und Erholung. Dein Körper trägt die Fähigkeit in sich, wieder ins Gleichgewicht zu finden. Die Massage schafft dafür den Raum.</p>
+          <p>Die Grundlage bildet die klassische Massage. Mit gezielten Grifftechniken löse ich Verspannungen in Muskulatur und Bindegewebe, rege die Durchblutung an und bringe dein Nervensystem zur Ruhe.</p>
+          <p>Je nach Beschwerden und Befinden ergänze ich die Behandlung mit Schröpfen oder mit Elementen aus der Fussreflexzonenmassage. Vor jeder Behandlung nehmen wir uns Zeit für ein kurzes Gespräch, damit ich auf deine Wünsche und Bedürfnisse eingehen kann.</p>
+          <p>Spüren statt analysieren. Du darfst einfach da sein, atmen und spüren.</p>
+          <!-- Akkordeon: klappt beim Klicken auf (geht ohne JavaScript) -->
+          <details class="mehr" id="schroepfen">
+            <summary>Schröpfen</summary>
+            <div class="mehr-inhalt">
+              <p>Ein traditionelles, ableitendes Verfahren</p>
+              <p>Schröpfen zählt zu den sogenannten ableitenden Verfahren. Dabei werden Schröpfgläser mit Unterdruck auf die Haut gesetzt. Der Sog regt die Durchblutung im Gewebe an und kann Muskulatur und Bindegewebe lockern. Nach traditionell europäischem Verständnis soll Schröpfen zudem den Lymphfluss anregen und den Körper in seinen eigenen Reinigungsprozessen unterstützen.</p>
+              <p>Ich setze die Gläser gezielt an bestimmten Stellen auf oder bewege sie in Form einer Schröpfmassage sanft über die Haut, ganz nach deinem Bedürfnis. Schröpfen lässt sich gut mit der klassischen Massage kombinieren.</p>
+              <p>Durch den Unterdruck können vorübergehend rötliche bis violette Hautverfärbungen entstehen. Sie sind in der Regel unbedenklich und verblassen meist innerhalb weniger Tage.</p>
+            </div>
+          </details>
+          <details class="mehr" id="fussreflexzonen">
+            <summary>Fussreflexzonentherapie</summary>
+            <div class="mehr-inhalt">
+              <p>Ein ganzheitlicher Zugang über die Füsse</p>
+              <p>Die Fussreflexzonenmassage beruht auf der Vorstellung, dass sich der ganze Körper in den Füssen widerspiegelt. Jedem Organ und jeder Körperregion ist eine bestimmte Zone am Fuss zugeordnet. Über die Füsse ist so der ganze Körper erreichbar. Nach traditionellem Verständnis kann die Behandlung dieser Zonen die Selbstregulation des Körpers anregen, Spannungen lösen und das innere Gleichgewicht unterstützen.</p>
+              <p>Mit sanftem, gezieltem Druck auf die Reflexzonen spreche ich deinen Körper auf einer anderen Ebene an. Ich passe die Behandlung an dein Befinden an und gehe auf Stellen ein, die besondere Aufmerksamkeit brauchen. Viele empfinden die Fussreflexzonenmassage als tief entspannend und erleben danach ein Gefühl von Ruhe und Erdung.</p>
+              <p>Einzelne Zonen können während der Behandlung empfindlich reagieren. Das ist normal und gibt oft Hinweise darauf, wo im Körper gerade etwas im Ungleichgewicht ist. Die Intensität stimme ich jederzeit mit dir ab.</p>
+            </div>
+          </details>
+          <!-- Aufruf zum Handeln: führt zur Kontaktseite -->
+          <p class="popup-aktion"><a class="button" href="kontakt.html">Termin buchen</a></p>
+        </section>
+      </li>
+      <li class="kreis-platz" id="pflanzenheilkunde">
+        <button class="kreis kreis-rosa kreis-fluffig" type="button" popovertarget="text-pflanzenheilkunde">Phyto-<br>therapie</button>
+        <section class="karte popup" id="text-pflanzenheilkunde" popover aria-labelledby="titel-pflanzenheilkunde">
+          <button class="popup-zu" type="button" popovertarget="text-pflanzenheilkunde" popovertargetaction="hide" aria-label="Schliessen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+          <h2 id="titel-pflanzenheilkunde">Phytotherapie – Pflanzenheilkunde</h2>
+          <p>Pflanzen gehören zu den ältesten Heilmitteln der Menschheit. Die Phytotherapie, auch Pflanzenheilkunde genannt, nutzt Blüten, Blätter, Wurzeln, Rinden und Samen. Sie unterstützt deinen Körper sanft und regt deine Selbstheilungskräfte an.</p>
+          <h3>Mein Ansatz</h3>
+          <p>Meine Arbeit mit Pflanzen ist stark von der <a href="#humoralmedizin">Humoralmedizin</a> geprägt. Diese alte Säftelehre ist eine der Grundlagen der Traditionellen Europäischen Naturheilkunde (TEN). Sie sieht den Menschen als Ganzes. Jede und jeder hat eine eigene Konstitution, ein eigenes Temperament.</p>
+          <p>Auch Pflanzen haben einen Charakter. Sie wirken wärmend oder kühlend, befeuchtend oder trocknend. Darum wähle ich nicht einfach «ein Mittel gegen» ein Symptom. Ich suche Pflanzen, die zu dir und deinem momentanen Zustand passen und dir helfen, dein inneres Gleichgewicht wiederzufinden.</p>
+          <h3>Wie die Pflanzen zu dir kommen</h3>
+          <!-- Die Formen als Liste: Begriff (dt) und Erklärung (dd) -->
+          <dl class="formen">
+            <dt>Tees</dt>
+            <dd>Die ursprünglichste Form der Pflanzenheilkunde. Getrocknete Pflanzenteile werden mit heissem Wasser übergossen und geben so ihre Wirkstoffe ab. Ein Tee wirkt mild und eignet sich gut für eine längere Anwendung. Schon die Zubereitung wird zu einem kleinen Ritual für dich selbst.</dd>
+            <dt>Tinkturen</dt>
+            <dd>Hier werden Pflanzen in Alkohol eingelegt. Er löst die Wirkstoffe heraus und macht sie lange haltbar. Schon wenige Tropfen genügen, darum lassen sich Tinkturen einfach in deinen Alltag einbauen.</dd>
+            <dt>Spagyrische Mischungen</dt>
+            <dd>Die Spagyrik geht auf die alchemistische Tradition und auf Paracelsus zurück. Die Pflanze wird vergoren und destilliert. Die Rückstände werden verascht, und die gewonnenen Mineralsalze kommen wieder zum Destillat zurück. So soll die ganze Pflanze mit allen ihren Bestandteilen erhalten bleiben.</dd>
+            <dt>Fertigarzneien</dt>
+            <dd>Das sind geprüfte und zugelassene pflanzliche Arzneimittel aus der Apotheke oder Drogerie. Ihr Wirkstoffgehalt ist standardisiert und ihre Dosierung genau festgelegt.</dd>
+          </dl>
+          <p>Welche Form für dich am besten passt, besprechen wir gemeinsam.</p>
+          <!-- Akkordeon: klappt beim Klicken auf (geht ohne JavaScript) -->
+          <details class="mehr" id="humoralmedizin">
+            <summary>Humoralmedizin</summary>
+            <div class="mehr-inhalt">
+              <p>Die Humoralmedizin, auch Vier-Säfte-Lehre genannt, ist eines der ältesten Heilkonzepte Europas. Sie geht auf den griechischen Arzt Hippokrates zurück und wurde später vom römischen Arzt Galen weiterentwickelt. Bis ins 19. Jahrhundert prägte sie die europäische Heilkunde.</p>
+              <p>Nach dieser Lehre wirken im Körper vier Säfte: Blut, Schleim, gelbe Galle und schwarze Galle. Jeder Saft hat bestimmte Qualitäten und ist warm oder kalt, feucht oder trocken. Sind die Säfte im Gleichgewicht, fühlen wir uns wohl. Gerät dieses Gleichgewicht durcheinander, können nach traditionellem Verständnis Beschwerden entstehen.</p>
+              <p>Welcher Saft bei einem Menschen überwiegt, prägt seine Konstitution, sein Temperament:</p>
+              <dl class="formen">
+                <dt>Sanguinisch (Blut)</dt>
+                <dd>warm und feucht, lebensfroh und gesellig</dd>
+                <dt>Cholerisch (gelbe Galle)</dt>
+                <dd>warm und trocken, tatkräftig und leidenschaftlich</dd>
+                <dt>Melancholisch (schwarze Galle)</dt>
+                <dd>kalt und trocken, tiefgründig und sorgfältig</dd>
+                <dt>Phlegmatisch (Schleim)</dt>
+                <dd>kalt und feucht, ruhig und ausgeglichen</dd>
+              </dl>
+              <p>Auch Pflanzen haben diese Qualitäten. Ingwer zum Beispiel wärmt und trocknet, die Malve dagegen kühlt und befeuchtet. So kann ich gezielt ausgleichen: Wer zu viel Kälte in sich trägt, bekommt eher wärmende Pflanzen.</p>
+              <p>Die vier Säfte verstehen wir heute nicht mehr wörtlich, sondern als Denkmodell. Es hilft, den Menschen als Ganzes zu sehen und nicht nur das einzelne Symptom.</p>
+            </div>
+          </details>
+          <p class="popup-aktion"><a class="button" href="kontakt.html">Termin buchen</a></p>
+        </section>
+      </li>
+      <li class="kreis-platz" id="ernaehrungsberatung">
+        <button class="kreis kreis-rosa kreis-wolkig" type="button" popovertarget="text-ernaehrungsberatung">Ernährungs-<br>beratung</button>
+        <section class="karte popup" id="text-ernaehrungsberatung" popover aria-labelledby="titel-ernaehrungsberatung">
+          <button class="popup-zu" type="button" popovertarget="text-ernaehrungsberatung" popovertargetaction="hide" aria-label="Schliessen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+          <h2 id="titel-ernaehrungsberatung">Naturheilkundliche Ernährungsberatung</h2>
+          <p>Altes Wissen und neue Erkenntnisse für eine nachhaltige Umstellung</p>
+          <p>Was wir essen, begleitet uns jeden Tag. Eine geeignete Ernährung kann dich stärken und deinen Körper in seinen natürlichen Prozessen unterstützen. Dabei gibt es nicht die eine richtige Ernährung für alle.</p>
+          <p>In meiner Ernährungsberatung verbinde ich zwei Blickwinkel. Der erste kommt aus der <a href="#humoralmedizin-ernaehrung">Humoralmedizin</a> der Traditionellen Europäischen Naturheilkunde (TEN). Nach ihrem Verständnis haben auch Lebensmittel bestimmte Qualitäten. Sie wirken wärmend oder kühlend, befeuchtend oder trocknend. Auch Gewürze, die Art der Zubereitung und die Jahreszeit spielen eine Rolle.</p>
+          <p>Der zweite Blickwinkel kommt aus den aktuellen Ernährungswissenschaften. Sie zeigen, was Nährstoffe wie Eiweiss, Fette, Vitamine und Mineralstoffe im Körper bewirken und wie Mahlzeiten den Blutzucker beeinflussen. Sie zeigen auch, wie wichtig ein gesunder Darm für das ganze Wohlbefinden ist. Dieses Wissen fliesst genauso in meine Beratung ein wie die Tradition.</p>
+          <p>Zu Beginn nehmen wir uns Zeit für ein ausführliches Gespräch. Wir schauen auf deine Essgewohnheiten, deinen Alltag, deine Beschwerden und deine Ziele. Daraus entwickeln wir gemeinsam Schritte, die gut in dein Leben passen. Es geht nicht um strenge Verbote oder Radikaldiäten, sondern um eine Umstellung, die du gerne beibehältst.</p>
+          <p>Nahrung, die Freude macht, kann dich auf allen Ebenen nähren.</p>
+          <!-- Akkordeon: klappt beim Klicken auf (geht ohne JavaScript) -->
+          <details class="mehr" id="humoralmedizin-ernaehrung">
+            <summary>Humoralmedizin</summary>
+            <div class="mehr-inhalt">
+              <p>Die Humoralmedizin, auch Vier-Säfte-Lehre genannt, ist eines der ältesten Heilkonzepte Europas. Sie geht auf den griechischen Arzt Hippokrates zurück und wurde später vom römischen Arzt Galen weiterentwickelt. Bis ins 19. Jahrhundert prägte sie die europäische Heilkunde.</p>
+              <p>Nach dieser Lehre wirken im Körper vier Säfte: Blut, Schleim, gelbe Galle und schwarze Galle. Jeder Saft hat bestimmte Qualitäten und ist warm oder kalt, feucht oder trocken. Sind die Säfte im Gleichgewicht, fühlen wir uns wohl. Gerät dieses Gleichgewicht durcheinander, können nach traditionellem Verständnis Beschwerden entstehen.</p>
+              <p>Welcher Saft bei einem Menschen überwiegt, prägt seine Konstitution, sein Temperament:</p>
+              <dl class="formen">
+                <dt>Sanguinisch (Blut)</dt>
+                <dd>warm und feucht, lebensfroh und gesellig</dd>
+                <dt>Cholerisch (gelbe Galle)</dt>
+                <dd>warm und trocken, tatkräftig und leidenschaftlich</dd>
+                <dt>Melancholisch (schwarze Galle)</dt>
+                <dd>kalt und trocken, tiefgründig und sorgfältig</dd>
+                <dt>Phlegmatisch (Schleim)</dt>
+                <dd>kalt und feucht, ruhig und ausgeglichen</dd>
+              </dl>
+              <p>Auch Pflanzen haben diese Qualitäten. Ingwer zum Beispiel wärmt und trocknet, die Malve dagegen kühlt und befeuchtet. So kann ich gezielt ausgleichen: Wer zu viel Kälte in sich trägt, bekommt eher wärmende Pflanzen.</p>
+              <p>Die vier Säfte verstehen wir heute nicht mehr wörtlich, sondern als Denkmodell. Es hilft, den Menschen als Ganzes zu sehen und nicht nur das einzelne Symptom.</p>
+            </div>
+          </details>
+          <p class="popup-aktion"><a class="button" href="kontakt.html">Termin buchen</a></p>
+        </section>
+      </li>
+    </ul>
+
+    <!-- Zarter Knopf unter den Kreisen: öffnet das Pop-up «Ablauf» -->
+    <p class="ablauf-link"><button type="button" popovertarget="text-ablauf"><span aria-hidden="true">→</span> So läuft eine Begleitung ab</button></p>
+    <!-- Pop-up «Ablauf»: derselbe Text wie auf ablauf.html. Klick daneben schliesst es (geht ohne JavaScript).
+         Wichtig: Textänderungen in BEIDEN Dateien machen (ablauf.html und angebot.html). -->
+    <section class="karte popup" id="text-ablauf" popover aria-labelledby="titel-ablauf">
+      <button class="popup-zu" type="button" popovertarget="text-ablauf" popovertargetaction="hide" aria-label="Schliessen"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <h2 id="titel-ablauf">Ablauf meiner naturheilkundlichen Begleitung</h2>
+      <p>Ob Phytotherapie, Ernährungsberatung oder beides zusammen: Die Begleitung baut Schritt für Schritt aufeinander auf. So kann ich dich von Anfang an individuell beraten und die Begleitung laufend an deine Entwicklung anpassen.</p>
+
+      <ol class="schritte">
+        <li>
+          <h3>Erstgespräch</h3>
+          <p>Für den ersten Termin nehmen wir uns rund 1,5 Stunden Zeit. Zuerst machen wir eine ausführliche Anamnese. Wir sprechen über deine Beschwerden, deine Krankheitsgeschichte und deine Ernährung. Auch dein Alltag, dein Schlaf und deine Verdauung kommen zur Sprache. Wenn du Befunde oder eine Liste deiner Medikamente hast, nimm sie gerne mit.</p>
+          <p>Danach folgt die naturheilkundliche Diagnostik. Ich schaue mir deine Zunge an, ertaste deinen Puls und untersuche dich, wenn es sinnvoll ist, auch körperlich. Diese Eindrücke zeigen mir, wie es dir gerade geht. Zusammen mit dem Gespräch ergeben sie ein ganzheitliches Bild, auf dem ich dein individuelles Therapiekonzept aufbaue.</p>
+        </li>
+        <li>
+          <h3>Dein persönliches Konzept</h3>
+          <p>Aus Anamnese und Diagnostik entwickle ich ein Konzept, das auf dich zugeschnitten ist. Das können Pflanzenmischungen, Ernährungsempfehlungen oder Impulse für deinen Alltag sein, etwa zu Bewegung, Schlaf und Entspannung. Wir besprechen es gemeinsam und stimmen es so ab, dass es zu dir passt und sich gut umsetzen lässt.</p>
+        </li>
+        <li>
+          <h3>Folgetermine</h3>
+          <p>Nach einigen Wochen treffen wir uns wieder. Wir schauen, wie du dich fühlst, was sich verändert hat und wie die Empfehlungen wirken. Wo es nötig ist, passen wir das Konzept an. Wie oft wir uns sehen und wie viel Zeit wir uns jeweils nehmen, entscheiden wir gemeinsam und je nachdem, was du brauchst.</p>
+        </li>
+      </ol>
+
+      <p class="schluss">Für eine Veränderung, die nachhaltig wirkt.</p>
+
+      <p class="popup-aktion"><a class="button" href="kontakt.html">Termin buchen</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="jahr">2026</span> Sharleena</p>
+    <ul class="footer-links">
+      <li><a href="impressum.html">Impressum</a></li>
+      <li><a href="datenschutz.html">Datenschutz</a></li>
+    </ul>
+  </footer>
+</body>
+</html>

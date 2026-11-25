@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <script src="passwort.js"></script>
+  <!-- Sicherheit: Die Seite darf nur eigene Dateien laden (keine fremden Skripte oder Dienste) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The process of my naturopathic support – Sharleena</title>
+  <script src="js/thema.js"></script>
+  <link rel="alternate" hreflang="de-CH" href="ablauf.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Skip to content</a>
+
+  <!-- Hintergrund: Foto hinter Milchglas. aria-hidden="true" und alt="" heissen:
+       nur Schmuck, Screenreader überspringen das.
+       FOTOS: Unterseiten zeigen dasselbe Foto wie zuletzt auf der Startseite (Liste in js/main.js).
+       Hier steht nur das Foto für Besuche ohne JavaScript. Mit --fokus-x / --fokus-y
+       angeben, wo im Foto das Motiv ist (0% = links/oben, 100% = rechts/unten). -->
+  <div class="buehne vertraeumt" aria-hidden="true" style="--fokus-x: 57%; --fokus-y: 45%">
+    <div class="fotos">
+      <!-- Ohne src: js/main.js setzt das Foto ein. So wird nur EIN Foto geladen. -->
+      <img class="foto foto-milchig" alt="">
+      <img class="foto foto-scharf" alt="">
+      <!-- Nur für Besuche ohne JavaScript -->
+      <noscript>
+        <img class="foto foto-milchig" src="bilder/sternbluete.jpg" alt="">
+        <img class="foto foto-scharf" src="bilder/sternbluete.jpg" alt="">
+      </noscript>
+    </div>
+    <div class="milch"></div>
+    <div class="schwaden"><span></span><span></span><span></span></div>
+    <div class="korn"></div>
+  </div>
+
+  <!-- Wellen-Filter: verzerrt das Foto sanft wie Wasser. Die Stärke ("scale")
+       setzt js/main.js, wenn die Maus sich bewegt – sonst ist sie 0. -->
+  <svg class="filter-vorlage" aria-hidden="true" focusable="false">
+    <filter id="welle" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="2" seed="4" result="rauschen">
+        <animate attributeName="baseFrequency" dur="16s" values="0.008 0.02; 0.01 0.025; 0.008 0.02" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="rauschen" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <header class="site-header">
+    <a class="logo" href="index-en.html">Sharleena</a>
+    <div class="kopf-rechts">
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="angebot-en.html">Services</a></li>
+          <li><a href="preise-en.html">Prices</a></li>
+          <li><a href="ueber-mich-en.html">About me</a></li>
+          <li><a href="kontakt-en.html">Contact</a></li>
+        </ul>
+      </nav>
+      <!-- Sprache und Tag/Nacht: eigene kleine Gruppe rechts neben dem Menü, blass wie der Titel der Startseite -->
+      <div class="schalter">
+        <!-- Sprachschalter: ein normaler Link zur gleichen Seite in der anderen Sprache (geht auch ohne JavaScript).
+             Sichtbar nur die Abkürzung; aria-label lässt Screenreader das ganze Wort vorlesen -->
+        <a class="sprache" href="ablauf.html" lang="de-CH" hreflang="de-CH" aria-label="Deutsch">DE</a>
+        <span class="trenner" aria-hidden="true"></span>
+        <!-- Tag/Nacht-Schalter: Sonne und Mond. Das Symbol des aktuellen Modus ist hervorgehoben.
+             aria-label gibt Screenreadern den Namen, aria-pressed sagt, ob der Nachtmodus an ist. -->
+        <button class="thema-schalter" type="button" aria-pressed="false" aria-label="Night mode" hidden>
+          <svg class="sonne" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>
+          </svg>
+          <svg class="mond" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="inhalt" class="seite">
+    <!-- Der ganze Ablauf in einer Karte, gestaltet wie die Pop-ups auf «Angebot».
+         Die Schritte stehen in einer nummerierten Liste (<ol>). -->
+    <article class="karte karte-weich">
+      <h1>The process of my naturopathic support</h1>
+      <p>Whether phytotherapy, nutritional counselling or both together: the support builds up step by step. This allows me to advise you individually from the very beginning and to keep adapting the support to how you are developing.</p>
+
+      <ol class="schritte">
+        <li>
+          <h2>First consultation</h2>
+          <p>For the first appointment we take about 1.5 hours. First, we take a detailed case history. We talk about your complaints, your medical history and your diet. Your daily life, your sleep and your digestion are also discussed. If you have medical findings or a list of your medications, please bring them along.</p>
+          <p>This is followed by the naturopathic assessment. I look at your tongue, feel your pulse and, where it makes sense, also examine you physically. These impressions show me how you are doing right now. Together with our conversation, they form a holistic picture on which I build your individual therapy plan.</p>
+        </li>
+        <li>
+          <h2>Your personal plan</h2>
+          <p>Based on the case history and assessment, I develop a plan tailored to you. This can include herbal blends, nutritional recommendations or suggestions for your everyday life, for example on exercise, sleep and relaxation. We discuss it together and adjust it so that it suits you and is easy to put into practice.</p>
+        </li>
+        <li>
+          <h2>Follow-up appointments</h2>
+          <p>After a few weeks we meet again. We look at how you are feeling, what has changed and how the recommendations are working. Where necessary, we adjust the plan. How often we meet and how much time we take each time, we decide together, depending on what you need.</p>
+        </li>
+      </ol>
+
+      <p class="schluss">For a change that lasts.</p>
+
+      <p class="popup-aktion"><a class="button" href="kontakt-en.html">Book an appointment</a></p>
+    </article>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="jahr">2026</span> Sharleena</p>
+    <ul class="footer-links">
+      <li><a href="impressum-en.html">Legal notice</a></li>
+      <li><a href="datenschutz-en.html">Privacy policy</a></li>
+    </ul>
+  </footer>
+</body>
+</html>

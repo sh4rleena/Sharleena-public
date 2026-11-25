@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <script src="passwort.js"></script>
+  <!-- Sicherheit: Die Seite darf nur eigene Dateien laden (keine fremden Skripte oder Dienste) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About me – Sharleena</title>
+  <script src="js/thema.js"></script>
+  <link rel="alternate" hreflang="de-CH" href="ueber-mich.html">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Skip to content</a>
+
+  <!-- Hintergrund: Foto hinter Milchglas. aria-hidden="true" und alt="" heissen:
+       nur Schmuck, Screenreader überspringen das.
+       FOTOS: Unterseiten zeigen dasselbe Foto wie zuletzt auf der Startseite (Liste in js/main.js).
+       Hier steht nur das Foto für Besuche ohne JavaScript. Mit --fokus-x / --fokus-y
+       angeben, wo im Foto das Motiv ist (0% = links/oben, 100% = rechts/unten). -->
+  <div class="buehne vertraeumt" aria-hidden="true" style="--fokus-x: 57%; --fokus-y: 45%">
+    <div class="fotos">
+      <!-- Ohne src: js/main.js setzt das Foto ein. So wird nur EIN Foto geladen. -->
+      <img class="foto foto-milchig" alt="">
+      <img class="foto foto-scharf" alt="">
+      <!-- Nur für Besuche ohne JavaScript -->
+      <noscript>
+        <img class="foto foto-milchig" src="bilder/sternbluete.jpg" alt="">
+        <img class="foto foto-scharf" src="bilder/sternbluete.jpg" alt="">
+      </noscript>
+    </div>
+    <div class="milch"></div>
+    <div class="schwaden"><span></span><span></span><span></span></div>
+    <div class="korn"></div>
+  </div>
+
+  <!-- Wellen-Filter: verzerrt das Foto sanft wie Wasser. Die Stärke ("scale")
+       setzt js/main.js, wenn die Maus sich bewegt – sonst ist sie 0. -->
+  <svg class="filter-vorlage" aria-hidden="true" focusable="false">
+    <filter id="welle" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="2" seed="4" result="rauschen">
+        <animate attributeName="baseFrequency" dur="16s" values="0.008 0.02; 0.01 0.025; 0.008 0.02" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="rauschen" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <header class="site-header">
+    <a class="logo" href="index-en.html">Sharleena</a>
+    <div class="kopf-rechts">
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="angebot-en.html">Services</a></li>
+          <li><a href="preise-en.html">Prices</a></li>
+          <li><a href="ueber-mich-en.html" aria-current="page">About me</a></li>
+          <li><a href="kontakt-en.html">Contact</a></li>
+        </ul>
+      </nav>
+      <!-- Sprache und Tag/Nacht: eigene kleine Gruppe rechts neben dem Menü, blass wie der Titel der Startseite -->
+      <div class="schalter">
+        <!-- Sprachschalter: ein normaler Link zur gleichen Seite in der anderen Sprache (geht auch ohne JavaScript).
+             Sichtbar nur die Abkürzung; aria-label lässt Screenreader das ganze Wort vorlesen -->
+        <a class="sprache" href="ueber-mich.html" lang="de-CH" hreflang="de-CH" aria-label="Deutsch">DE</a>
+        <span class="trenner" aria-hidden="true"></span>
+        <!-- Tag/Nacht-Schalter: Sonne und Mond. Das Symbol des aktuellen Modus ist hervorgehoben.
+             aria-label gibt Screenreadern den Namen, aria-pressed sagt, ob der Nachtmodus an ist. -->
+        <button class="thema-schalter" type="button" aria-pressed="false" aria-label="Night mode" hidden>
+          <svg class="sonne" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>
+          </svg>
+          <svg class="mond" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="inhalt" class="seite seite-zweispaltig">
+    <div class="zwei-spalten">
+      <!-- Links: Foto von Sharleena. Zum Austauschen nur «src» ändern (Foto vorher verkleinern
+           und ohne Metadaten in bilder/ speichern). alt = Beschreibung für Screenreader -->
+      <div class="foto-platz">
+        <img src="bilder/sharleena.jpg" alt="Portrait of Sharleena" width="854" height="1280">
+      </div>
+
+      <!-- Rechts: der ganze Text in einer Karte, gestaltet wie die Pop-ups auf «Angebot» -->
+      <article class="karte karte-weich">
+        <!-- Name als Titel, direkt darunter die Berufsbezeichnung -->
+        <h1>Sharleena</h1>
+        <p class="untertitel">Trainee naturopath,<br><span class="eine-zeile">specialising in Traditional European Naturopathy (TEN)</span></p>
+
+        <h2>My path</h2>
+        <p>It all began with my own search for health. I wanted to find answers, and along the way I discovered medicinal plants and nutrition for myself. I was able to experience first-hand how much herbal medicine can support us and how closely nutrition and well-being are connected. This fascination grew into my passion for this profession.</p>
+        <p>Alongside naturopathy, I work as a painter, so working with my hands is familiar to me. During my training as a naturopath, I found in massage a completely new way of working with my hands. It showed me how much can be passed on through the hands. A mindful touch can calm, offer support and let the body feel that it may let go. For me, healing happens in relaxation. That is why massage is a central part of my work.</p>
+
+        <h2>What inspires me about this work</h2>
+        <p>What I particularly value about my work as a naturopath is that I get to be curious, to explore and to understand connections. This applies to a herbal blend just as much as to tension in the back. Massage adds another side that means a lot to me: for me, it has something meditative about it. I am in motion and yet fully in the moment, sensing and letting my intuition guide me.</p>
+        <p>It fulfils me to be able to share my knowledge and to support people in finding their own way to greater well-being.</p>
+
+        <h2>How I work</h2>
+        <p>Trust is the foundation of all support. With me, you can arrive just as you are. I want to offer you a space where you can speak openly and feel accepted, free from judgement.</p>
+        <p>I take time to get to know you and your concerns. I tailor all my support to you, to your complaints, your life situation and your needs. What we work out together should fit well into your everyday life and feel right for you.</p>
+        <p>Whether you choose naturopathy as your only therapy or alongside conventional medical treatment is your decision. I am happy to take existing lab results or medical reports into account.</p>
+
+        <!-- Der Pfeil ist nur Schmuck, darum liest ihn der Screenreader nicht vor -->
+        <p><span aria-hidden="true">→</span> You can find out how working with me proceeds <a href="ablauf-en.html">here</a>.</p>
+      </article>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>© <span id="jahr">2026</span> Sharleena</p>
+    <ul class="footer-links">
+      <li><a href="impressum-en.html">Legal notice</a></li>
+      <li><a href="datenschutz-en.html">Privacy policy</a></li>
+    </ul>
+  </footer>
+</body>
+</html>

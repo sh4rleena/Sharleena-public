@@ -1,0 +1,1817 @@
+/* ==========================================================
+   FARBEN
+   Tagmodus (hell) ist der Standard. Der Nachtmodus steht
+   zweimal weiter unten: einmal für den Schalter auf der Seite,
+   einmal für Geräte, die auf «Dunkel» eingestellt sind.
+   Textfarben haben genug Kontrast (mind. 4.5:1).
+   ========================================================== */
+:root {
+  color-scheme: light;
+
+  --grund: #f2e2df;            /* zartes, leicht abgedunkeltes Rosé (Links behalten 4.5:1 Kontrast) */
+  --grund-2: #f0d6ce;          /* helles Rosa */
+  --grund-3: #dfcae2;          /* Lavendel */
+
+  /* Text */
+  --text: #3b2a26;             /* warmes Dunkelbraun */
+  --text-sanft: #6b4f48;
+
+  /* Akzent für Links und Hover-Ränder: erdiges, dunkles Altrosa-Braun (Kontrast 5.2:1) */
+  --akzent: #8a5a55;
+  --akzent-dunkler: #6e4540;
+  --scrollbalken: color-mix(in srgb, var(--akzent) 30%, transparent);         /* Scrollbalken: hell und zart */
+  --scrollbalken-hover: color-mix(in srgb, var(--akzent) 55%, transparent);
+  --link-hover: #a3505f;       /* Links beim Darüberfahren: kräftigeres Rosé (Kontrast über 4.5:1) */
+  --auf-akzent: #ffffff;
+
+  /* Feine Linien und halbdurchsichtige Flächen */
+  --linie: rgba(138, 90, 85, 0.25);
+  --glas: rgba(255, 255, 255, 0.6);
+  --karte: rgba(255, 255, 255, 0.78);
+  --schatten-weich: rgba(59, 42, 38, 0.12);   /* weicher Schatten unter dem Pop-up */
+
+  /* Milchglas über dem Foto: am Rand dichter, in der Mitte klar */
+  --milch: rgba(251, 242, 241, 0.5);
+  /* Fläche hinter der festen Navigation: Farbe aus dem oberen Teil des aktuellen Fotos
+     (--kopf-ton setzt js/main.js pro Foto, Wert «oben» in der Fotoliste) */
+  --kopf-flaeche: color-mix(in oklab, var(--kopf-ton, var(--grund)) 60%, #ffffff);   /* am Tag etwas heller/weisser */
+  --milch-leicht: rgba(255, 246, 246, 0.05);
+  --foto-filter: saturate(0.95);
+  --nebel-farbe: rgba(255, 255, 255, 0.6);
+
+  /* «Termin vereinbaren»-Button: wie der Tag/Nacht-Schalter – Milchglas, feiner Rand.
+     Weil er auf --glas, --text und --linie verweist, passt er sich im Nachtmodus von selbst an. */
+  --button-grund: var(--glas);
+  --button-text: var(--text);
+  --button-rand: var(--linie);
+  --button-hover: var(--akzent);   /* Rand beim Darüberfahren */
+
+  /* Kreise auf der Angebotsseite: alle hellrosa (innen heller).
+     Die Schrift darin bleibt immer dunkel – Kontrast über 7:1. */
+  /* Die Kreise mischen ihr Rosa mit dem Farbton des aktuellen Hintergrundfotos
+     (--foto-ton setzt js/main.js; ohne JavaScript bleibt es rosa). */
+  --foto-ton: #f5c6d1;
+  --kreis-tag: color-mix(in oklab, var(--foto-ton) 35%, #f5c6d1);         /* Grundfarbe der Kreise */
+  --kreis-tag-innen: color-mix(in oklab, var(--foto-ton) 20%, #fde6eb);
+  --kreis-rosa: var(--kreis-tag);
+  --kreis-rosa-innen: var(--kreis-tag-innen);
+  --kreis-rand: #ffffff;       /* weisser Pusteblumen-Rand */
+  --kreis-text: #3b2a26;
+  --kreis-schein: none;        /* am Tag braucht die Schrift im Kreis keinen Schein */
+
+  /* Schrift: Helvetica Neue – schlicht und klar. Ist auf Mac/iPhone schon vorhanden,
+     auf Windows wird Arial verwendet. Nichts wird von fremden Servern geladen. */
+  --schrift-titel: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --schrift-text: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+  /* Eine Schriftgrösse für Kopf, Menü, Schwerpunkte, Button und Fussbereich – in Grossbuchstaben */
+  --schrift-klein: 0.8rem;
+  --schrift-fuss: 0.625rem;   /* Fusszeile: © Impressum, Datenschutz (10 px – kleiner wird schwer lesbar) */
+  --sperrung: 0.112rem;  /* Abstand zwischen den Buchstaben (Laufweite) – bei ALLEN Texten in Grossbuchstaben gleich,
+                          auch bei grossen Titeln (fester Wert statt «em», sonst wächst der Abstand mit der Schrift) */
+  --abstand-untertitel: 3rem;   /* Abstand zwischen Text und dem nächsten Untertitel – überall gleich */
+
+  --rand: clamp(1.25rem, 3vw, 2.5rem);   /* Abstand zum Bildschirmrand */
+  --kopf-oben: 1rem;           /* Abstand des Kopfbereichs zum oberen Rand – auf allen Seiten gleich */
+  --rundung: 1.25rem;
+}
+
+/* ---------- Nachtmodus: warmes, neutrales Anthrazit mit zarten Rosé-Akzenten ---------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --grund: #1c1b1d;
+  --grund-2: #2b2628;
+  --grund-3: #222622;
+  --text: #f1ece9;
+  --text-sanft: #cbc3bf;
+  --akzent: #e6b8bf;
+  --akzent-dunkler: #f2d0d5;
+  --link-hover: #fff3f5;
+  --scrollbalken: color-mix(in srgb, var(--akzent) 30%, transparent);
+  --scrollbalken-hover: color-mix(in srgb, var(--akzent) 55%, transparent);
+  --auf-akzent: #1c1b1d;
+  --linie: rgba(241, 236, 233, 0.22);
+  --glas: rgba(28, 27, 29, 0.55);
+  --karte: rgba(28, 27, 29, 0.78);
+  --schatten-weich: rgba(0, 0, 0, 0.35);
+  --milch: rgba(28, 27, 29, 0.48);
+  --kopf-flaeche: var(--kopf-ton, var(--grund));   /* nachts: Farbe vom Foto, nicht aufgehellt */
+  --milch-leicht: rgba(28, 27, 29, 0.05);
+  --foto-filter: brightness(0.92) saturate(0.95);
+  --nebel-farbe: rgba(95, 90, 92, 0.32);
+  /* Nacht: Kreise im gleichen Design wie am Tag, aber durchscheinend wie Milchglas
+     (nicht dunkel gefüllt). Die helle Schrift bekommt einen weichen dunklen Schein. */
+  --kreis-rosa: color-mix(in oklab, var(--kreis-tag) 44%, transparent);
+  --kreis-rosa-innen: color-mix(in oklab, var(--kreis-tag-innen) 36%, transparent);
+  --kreis-rand: rgba(255, 255, 255, 0.55);   /* zarter, halb durchsichtiger weisser Rand */
+  --kreis-text: #fdf8f6;
+  --kreis-schein: 0 0 0.25rem rgba(28, 27, 29, 0.9), 0 0 0.6rem rgba(28, 27, 29, 0.75), 0 0 1.2rem rgba(28, 27, 29, 0.5);
+}
+
+/* Gleiche Farben, wenn das Gerät auf «Dunkel» steht und niemand den Schalter benutzt hat */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --grund: #1c1b1d;
+    --grund-2: #2b2628;
+    --grund-3: #222622;
+    --text: #f1ece9;
+    --text-sanft: #cbc3bf;
+    --akzent: #e6b8bf;
+    --akzent-dunkler: #f2d0d5;
+    --link-hover: #fff3f5;
+    --scrollbalken: color-mix(in srgb, var(--akzent) 30%, transparent);
+    --scrollbalken-hover: color-mix(in srgb, var(--akzent) 55%, transparent);
+    --auf-akzent: #1c1b1d;
+    --linie: rgba(241, 236, 233, 0.22);
+    --glas: rgba(28, 27, 29, 0.55);
+    --karte: rgba(28, 27, 29, 0.78);
+    --schatten-weich: rgba(0, 0, 0, 0.35);
+    --milch: rgba(28, 27, 29, 0.48);
+    --kopf-flaeche: var(--kopf-ton, var(--grund));
+    --milch-leicht: rgba(28, 27, 29, 0.05);
+    --foto-filter: brightness(0.92) saturate(0.95);
+    --nebel-farbe: rgba(95, 90, 92, 0.32);
+    /* Nacht: Kreise im gleichen Design wie am Tag, aber durchscheinend wie Milchglas
+       (nicht dunkel gefüllt). Die helle Schrift bekommt einen weichen dunklen Schein. */
+    --kreis-rosa: color-mix(in oklab, var(--kreis-tag) 44%, transparent);
+    --kreis-rosa-innen: color-mix(in oklab, var(--kreis-tag-innen) 36%, transparent);
+    --kreis-rand: rgba(255, 255, 255, 0.55);   /* zarter, halb durchsichtiger weisser Rand */
+    --kreis-text: #fdf8f6;
+    --kreis-schein: 0 0 0.25rem rgba(28, 27, 29, 0.9), 0 0 0.6rem rgba(28, 27, 29, 0.75), 0 0 1.2rem rgba(28, 27, 29, 0.5);
+  }
+}
+
+/* Langsam umlaufender Winkel: lässt die fliessende scharfe Fläche ihre Form verändern */
+@property --welle-phase {
+  syntax: "<angle>";
+  inherits: true;
+  initial-value: 0deg;
+}
+
+/* Mausposition (kommt aus main.js). Weil sie hier "angemeldet" wird,
+   kann der Browser weich zwischen zwei Positionen überblenden. */
+@property --maus-x {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+@property --maus-y {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+
+
+/* ==========================================================
+   GRUNDLAGEN
+   ========================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Platz für die Bildlaufleiste immer freihalten – so springt der Kopfbereich
+   nicht zur Seite, wenn eine Seite lang ist und eine andere kurz */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* ---------- Scrollbalken (überall: Seite und Pop-ups) ----------
+   Dezent: schmal, helles zartes Altrosa statt Dunkelgrau, nur leicht abgerundet,
+   ohne sichtbare Schiene. Safari und Chrome nutzen die «::-webkit-scrollbar»-Regeln,
+   Firefox die Regel mit «scrollbar-color» weiter unten. */
+::-webkit-scrollbar {
+  width: 0.5rem;               /* schmal (8 px) */
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;     /* keine sichtbare Schiene */
+}
+
+::-webkit-scrollbar-thumb {
+  border: 2px solid transparent;   /* macht den Balken optisch noch schmaler */
+  border-radius: 2px;          /* nur leicht abgerundet */
+  background: var(--scrollbalken);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbalken-hover);
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+  background: transparent;
+}
+
+/* Firefox kennt die Regeln oben nicht – dort Farbe und schmale Breite so */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-color: var(--scrollbalken) transparent;
+    scrollbar-width: thin;
+  }
+}
+
+body {
+  margin: 0;
+  font-family: var(--schrift-text);
+  font-size: 1rem;     /* Fliesstext überall 16 px */
+  line-height: 1.6;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 18%, var(--grund-2) 0, transparent 45%),
+    radial-gradient(circle at 88% 85%, var(--grund-3) 0, transparent 45%),
+    var(--grund);
+  /* Alles mit z-index: -1 bleibt trotzdem hinter dem Inhalt sichtbar */
+  isolation: isolate;
+}
+
+h1, h2, h3 {
+  font-family: var(--schrift-titel);
+  font-weight: 400;
+  line-height: 1.15;
+}
+
+a {
+  color: var(--akzent);
+  text-underline-offset: 0.2em;
+}
+
+/* Beim Darüberfahren wechselt die Farbe deutlich (z. B. «Humoralmedizin» im Pop-up) */
+a:hover {
+  color: var(--link-hover);
+}
+
+/* Gut sichtbarer Rahmen, wenn man mit der Tastatur navigiert */
+:focus-visible {
+  outline: 3px solid var(--text);
+  outline-offset: 4px;
+  border-radius: 0.25rem;
+}
+
+/* Text nur für Screenreader (unsichtbar, aber vorgelesen) */
+.nur-vorlesen {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- «Zum Inhalt springen» ---------- */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -10rem;
+  padding: 0.75rem 1rem;
+  background: var(--akzent);
+  color: var(--auf-akzent);
+  z-index: 10;
+}
+
+.skip-link:focus {
+  top: 1rem;
+  color: var(--auf-akzent);
+}
+
+/* ==========================================================
+   KOPFBEREICH (alle Seiten)
+   ========================================================== */
+/* Alle kurzen Texte gleich gross und in Grossbuchstaben, wie «Sharleena» */
+.site-header,
+.site-footer,
+.schwerpunkte,
+.button,
+.seite h1,
+.seite h2 {
+  font-size: var(--schrift-klein);
+  letter-spacing: var(--sperrung);
+  text-transform: uppercase;
+}
+
+/* Zwei Spalten: links der Name, rechts Menü und Sprache / Tag-Nacht */
+.site-header {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;       /* alle Texte stehen auf derselben Schriftlinie */
+  gap: 0.75rem 2rem;
+  padding: var(--kopf-oben) var(--rand) var(--rand);   /* oben immer gleich nah am Rand */
+}
+
+.logo {
+  justify-self: start;         /* oben links */
+  padding: 0.4rem 0;           /* Platz für die feine Linie beim Darüberfahren */
+  text-decoration: none;
+  color: var(--text);
+}
+
+.kopf-rechts {
+  justify-self: end;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;         /* Menü, Sprache und Sonne/Mond auf einer Linie */
+  flex-wrap: wrap;             /* wird es eng, bricht es rechtsbündig um */
+  gap: 0.5rem 3rem;            /* deutlicher Abstand zwischen Menü und Sprache/Sonne/Mond */
+  white-space: nowrap;         /* einzelne Menüpunkte werden nicht mitten im Wort getrennt */
+}
+
+/* «ENG / Sonne Mond»: eigene kleine Gruppe rechts neben dem Menü */
+.schalter {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.25rem 1.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Grosszügige Klickflächen (mind. 24 × 24 px) */
+.nav-list a {
+  display: inline-block;
+  padding: 0.4rem 0.1rem;
+  color: var(--text);
+  text-decoration: none;
+}
+
+/* Menü und «Sharleena»: unsichtbare feine Linie unter dem Wort */
+.nav-list a,
+.logo {
+  background: linear-gradient(var(--akzent), var(--akzent)) no-repeat left bottom / 0 1px;
+}
+
+/* Feine Linie wächst beim Darüberfahren von links nach rechts */
+.nav-list a:hover,
+.nav-list a[aria-current="page"],
+.logo:hover {
+  background-size: 100% 1px;
+}
+
+/* ---------- Sprache und Tag/Nacht: ohne sichtbaren Knopf ----------
+   Klein wie das Menü, aber im Stil des Titels auf der Startseite:
+   erdiges Altrosa, halb durchsichtig und «multipliziert» – so hebt sich
+   die Gruppe vom Menü ab. Beim Darüberfahren wird sie voll sichtbar. */
+.sprache,
+.thema-schalter,
+.trenner {
+  color: var(--akzent);
+  opacity: 0.5;
+  mix-blend-mode: multiply;    /* wie beim Titel: färbt das Foto nur ein */
+  text-shadow: none;           /* ohne Lichtschein, damit der Effekt sichtbar bleibt */
+}
+
+.sprache,
+.thema-schalter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-height: 1.75rem;         /* Klickfläche mindestens 24 px hoch */
+  padding: 0.2rem 0;
+  border: none;
+  background: none;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sprache:hover,
+.sprache:focus-visible,
+.thema-schalter:hover,
+.thema-schalter:focus-visible {
+  opacity: 1;
+}
+
+/* Nachts: Gegenstück «Negativ multiplizieren», sonst wäre die helle Schrift unsichtbar */
+:root[data-theme="dark"] :is(.sprache, .thema-schalter, .trenner) {
+  mix-blend-mode: screen;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) :is(.sprache, .thema-schalter, .trenner) {
+    mix-blend-mode: screen;
+  }
+}
+
+/* Feiner senkrechter Strich zwischen Sprache und Sonne/Mond */
+.trenner {
+  display: inline-block;
+  width: 1px;
+  height: 0.9em;
+  background: currentColor;    /* gleiche Farbe wie «ENG» */
+}
+
+/* Ohne JavaScript gibt es keinen Tag/Nacht-Schalter – dann auch keinen Strich */
+.trenner:has(+ .thema-schalter[hidden]) {
+  display: none;
+}
+
+/* Sonne und Mond als feine Linien */
+.thema-schalter svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  opacity: 0.55;
+}
+
+/* Am Tag ist die Sonne hervorgehoben, in der Nacht der Mond */
+.thema-schalter[aria-pressed="false"] .sonne,
+.thema-schalter[aria-pressed="true"] .mond {
+  opacity: 1;
+}
+
+.thema-schalter[aria-pressed="false"] .sonne circle,
+.thema-schalter[aria-pressed="true"] .mond path {
+  fill: currentColor;
+}
+
+/* «hidden» = ohne JavaScript bleibt der Schalter versteckt, weil er dann nicht funktionieren würde */
+.thema-schalter[hidden] {
+  display: none;
+}
+
+/* ==========================================================
+   FUSSBEREICH (alle Seiten)
+   ========================================================== */
+.site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.25rem 1.5rem;
+  padding: 0.5rem var(--rand) 0.75rem;   /* ganz an den Rand: links/rechts wie der Kopf, unten wenig Abstand */
+  color: var(--text-sanft);
+  font-size: var(--schrift-fuss);   /* Fusszeile etwas kleiner als Kopf und Menü */
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.footer-links a {
+  display: inline-block;
+  padding: 0.3rem 0;           /* Klickfläche trotz kleiner Schrift mindestens 24 px hoch */
+  color: var(--text-sanft);
+  text-decoration: none;       /* ohne Unterstrich */
+}
+
+/* Beim Darüberfahren färbt sich der Link, damit man sieht, dass er klickbar ist */
+.footer-links a:hover {
+  color: var(--akzent);
+}
+
+/* ==========================================================
+   FOTO MIT MILCHGLAS (alle Seiten)
+   Das Foto liegt zweimal übereinander:
+   1. unscharf und milchig über den ganzen Bildschirm
+   2. scharf, aber nur in einem weichen Fleck sichtbar
+   Der scharfe Fleck folgt ganz langsam der Maus, darüber
+   ziehen Nebelschwaden vorbei. Beim Darüberfahren mit der
+   Maus gerät das Foto in eine sanfte Wellenbewegung.
+   ========================================================== */
+.buehne {
+  /* Wo das Motiv im Foto ist (wird pro Foto im HTML gesetzt) */
+  --fokus-x: 50%;
+  --fokus-y: 50%;
+  /* Wo der scharfe Fleck gerade ist: Motiv + etwas Mausbewegung */
+  --klar-x: calc(var(--fokus-x) + var(--maus-x) * 14%);
+  --klar-y: calc(var(--fokus-y) + var(--maus-y) * 10%);
+  /* Wie stark verschwommen das ganze Foto ist */
+  --unschaerfe: 14px;
+
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Verträumte Variante: weicher, milchiger, blasser */
+.buehne.vertraeumt {
+  --unschaerfe: 18px;
+  --milch: rgba(250, 236, 240, 0.52);
+  --milch-leicht: rgba(255, 238, 244, 0.05);
+  --foto-filter: saturate(1.05) brightness(1.02);
+}
+
+:root[data-theme="dark"] .buehne.vertraeumt {
+  --milch: rgba(28, 27, 29, 0.52);
+  --milch-leicht: rgba(28, 27, 29, 0.06);
+  --foto-filter: brightness(0.9) saturate(0.95);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .buehne.vertraeumt {
+    --milch: rgba(28, 27, 29, 0.52);
+    --milch-leicht: rgba(28, 27, 29, 0.06);
+    --foto-filter: brightness(0.9) saturate(0.95);
+  }
+}
+
+/* Enthält nur den Wellen-Filter und ist selbst unsichtbar */
+.filter-vorlage {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+/* Fotos mit wenig Nebel: dünneres Milchglas, zartere Schwaden, schärfer */
+.buehne.vertraeumt.wenig-nebel {
+  --unschaerfe: 5px;
+  --milch: rgba(250, 236, 240, 0.14);
+  --nebel-farbe: rgba(255, 255, 255, 0.14);
+}
+
+:root[data-theme="dark"] .buehne.vertraeumt.wenig-nebel {
+  --milch: rgba(28, 27, 29, 0.14);
+  --nebel-farbe: rgba(95, 90, 92, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .buehne.vertraeumt.wenig-nebel {
+    --milch: rgba(28, 27, 29, 0.14);
+    --nebel-farbe: rgba(95, 90, 92, 0.08);
+  }
+}
+
+/* Beide Fotos zusammen – auf diese Gruppe wirkt die Wellenbewegung */
+.fotos {
+  position: absolute;
+  inset: 0;
+}
+
+/* Die Welle wird nur eingeschaltet, solange sie gebraucht wird (spart Rechenleistung) */
+.buehne.wellen .fotos {
+  filter: url(#welle);
+}
+
+.foto {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: var(--fokus-x) var(--fokus-y);
+  filter: var(--foto-filter);
+}
+
+/* 1. Ganzes Foto: weich wie hinter Milchglas */
+.foto-milchig {
+  filter: blur(var(--unschaerfe)) var(--foto-filter);
+  scale: 1.08; /* versteckt den unscharfen Rand */
+}
+
+/* 2. Scharfes Foto: nur in einer weichen Ellipse sichtbar */
+.foto-scharf {
+  mask-image: radial-gradient(ellipse 34% 42% at var(--klar-x) var(--klar-y), #000 25%, transparent 100%);
+}
+
+/* Fliessende Variante: Statt einer runden Fläche überlagern sich vier weiche,
+   unterschiedlich grosse Formen, leicht aus der Mitte verschoben. Mit --welle-phase
+   wandern sie langsam umeinander (nur wenn Bewegung erlaubt ist, siehe unten). */
+.buehne.fliessend .foto-scharf {
+  --s: sin(var(--welle-phase));
+  --c: cos(var(--welle-phase));
+  mask-image:
+    radial-gradient(ellipse 34% 24% at calc(var(--klar-x) - 14% + var(--s) * 5%) calc(var(--klar-y) - 12% + var(--c) * 4%), #000 15%, transparent 100%),
+    radial-gradient(ellipse 22% 38% at calc(var(--klar-x) + 16% - var(--c) * 4%) calc(var(--klar-y) + 2% + var(--s) * 6%), #000 15%, transparent 100%),
+    radial-gradient(ellipse 40% 20% at calc(var(--klar-x) + 4% + var(--c) * 6%) calc(var(--klar-y) + 24% - var(--s) * 3%), #000 10%, transparent 100%),
+    radial-gradient(ellipse 18% 26% at calc(var(--klar-x) - 26% - var(--s) * 4%) calc(var(--klar-y) + 14% + var(--c) * 5%), #000 10%, transparent 100%);
+}
+
+/* Milchiger Schleier: in der Mitte durchsichtig, zu den Rändern hin dichter.
+   So bleiben auch die Texte in den Ecken gut lesbar. */
+.milch {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 65% at var(--klar-x) var(--klar-y), transparent 20%, var(--milch) 100%),
+    var(--milch-leicht);
+}
+
+.schwaden {
+  position: absolute;
+  inset: 0;
+}
+
+/* Weichzeichnung links hinter den Schwerpunkten – NICHT milchig: das Foto wird dort
+   nur unscharf, Farbe und Helligkeit bleiben. Läuft ohne Kante zur Mitte hin aus. */
+.buehne.nebel-links::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  backdrop-filter: blur(16px);
+  mask-image:
+    radial-gradient(ellipse 34% 42% at 6% 46%, #000 0%, transparent 100%),
+    linear-gradient(to right, #000 0%, transparent 30%);
+  pointer-events: none;
+}
+
+/* Manche Fotos ganz ohne milchigen Schleier – nur die Nebelschwaden bleiben */
+.buehne.ohne-milch .milch {
+  display: none;
+}
+
+/* Nebelschwaden: grosse, weiche, milchige Wolken */
+.schwaden span {
+  position: absolute;
+  width: 70vw;
+  height: 40vh;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--nebel-farbe) 10%, transparent);
+  filter: blur(24px);
+}
+
+.schwaden span:nth-child(1) { top: 15%; left: -45%; }
+.schwaden span:nth-child(2) { top: 42%; left: 55%; width: 55vw; height: 32vh; }
+.schwaden span:nth-child(3) { top: 58%; left: -35%; width: 80vw; }
+
+/* Feines Korn wie bei einem analogen Foto */
+.korn {
+  position: absolute;
+  inset: 0;
+  opacity: 0.12;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='k'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23k)'/%3E%3C/svg%3E");
+}
+
+/* ==========================================================
+   STARTSEITE
+   Ein Bildschirm: Ecken oben, links die Schwerpunkte, unten
+   Button in der Mitte – Fussbereich rechts.
+   "min-height" statt "height": Bei starkem Zoom darf man
+   trotzdem scrollen, damit nie etwas abgeschnitten wird.
+   ========================================================== */
+.startseite {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  min-height: 100dvh; /* berücksichtigt die Adressleiste auf dem Handy */
+  padding: var(--kopf-oben) var(--rand) 0.75rem;   /* oben und unten gleich nah am Rand wie auf den Unterseiten */
+  column-gap: 2rem;
+  background: var(--grund); /* falls das Foto nicht lädt */
+}
+
+.startseite .site-header {
+  grid-column: 1 / -1;
+  grid-row: 1;
+  margin: 0;
+  padding: 0;
+}
+
+/* Der Hauptinhalt füllt die Mitte, darunter folgt die Fusszeile */
+.startseite main {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-template-rows: 1fr auto;
+  row-gap: 1.5rem;
+}
+
+/* Weicher Lichtschein hinter den Texten, damit sie vor dem Foto gut lesbar bleiben */
+.site-header,
+.schwerpunkte,
+.site-footer,
+.seite h1 {
+  text-shadow: 0 0 0.35rem var(--grund), 0 0 1rem var(--grund), 0 0 2rem var(--grund);
+}
+
+/* Mit wenig oder ohne Milchglas braucht die Schrift einen dichteren Schein, um lesbar zu bleiben */
+.starker-schein .site-header,
+.starker-schein .schwerpunkte,
+.starker-schein .site-footer,
+.starker-schein .seite h1 {
+  text-shadow:
+    0 0 0.2rem var(--grund), 0 0 0.4rem var(--grund), 0 0 0.8rem var(--grund),
+    0 0 1.4rem var(--grund), 0 0 2.4rem var(--grund);
+}
+
+.button {
+  text-shadow: none;
+}
+
+/* Links in der Mitte: grosser Titel, höchstens ein Drittel der Seitenbreite.
+   Blass: Deckkraft 50 % und «multipliziert» wie in InDesign –
+   die Schrift färbt das Foto nur zart ein, das Foto scheint durch. */
+.titel-start {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  max-width: 35vw;             /* etwa ein Drittel der Seite */
+  margin: 0;
+  /* so gross, dass «NATURHEILKUNDE» gerade noch in die Breite passt, höchstens 4.5-mal die Menüschrift */
+  font-size: min(calc(var(--schrift-klein) * 4.5), 3.5vw);
+  font-weight: 400;            /* normale Stärke */
+  line-height: 1.1;
+  letter-spacing: var(--sperrung);   /* gleiche Laufweite wie alle Titel */
+  text-transform: uppercase;
+  text-wrap: balance;          /* Zeilen etwa gleich lang */
+  overflow-wrap: break-word;
+  color: var(--akzent);        /* erdiges Altrosa statt Dunkelbraun – wirkt multipliziert weicher */
+  opacity: 0.5;                /* Deckkraft 50 %: blass, das Foto scheint durch */
+  mix-blend-mode: multiply;    /* «Multiplizieren»: die Schrift färbt das Foto nur ein */
+}
+
+/* Nachts ist die Schrift hell (zartes Rosé): dort wäre «Multiplizieren» unsichtbar,
+   deshalb das Gegenstück «Negativ multiplizieren» (screen) – hellt das Foto zart auf */
+:root[data-theme="dark"] .titel-start {
+  mix-blend-mode: screen;
+  opacity: 0.7;                /* nachts etwas weniger durchsichtig als am Tag (0.5) */
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .titel-start {
+    mix-blend-mode: screen;
+    opacity: 0.7;
+  }
+}
+
+/* Rechts in der Mitte: die drei Schwerpunkte, 20 % grösser als das Menü */
+.schwerpunkte {
+  font-size: calc(var(--schrift-klein) * 1.2);
+  grid-column: 3;
+  grid-row: 1;
+  justify-self: end;
+  align-self: center;
+  text-align: right;
+}
+
+.schwerpunkte ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Die Schwerpunkte sind Knöpfe, die das Pop-up öffnen – sie sehen aus wie Links */
+.schwerpunkte button {
+  display: inline-block;
+  padding: 0.25rem 0;
+  border: none;
+  background: none;
+  color: var(--text);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-shadow: inherit;
+  cursor: pointer;
+}
+
+/* Beim Darüberfahren gleitet rechts neben der Schrift ein kleiner Strich herein */
+.schwerpunkte button::after {
+  content: "";
+  display: inline-block;
+  width: 0;
+  height: 1px;
+  margin-left: 0;
+  vertical-align: middle;
+  background: var(--akzent);
+}
+
+.schwerpunkte button:hover::after,
+.schwerpunkte button:focus-visible::after {
+  width: 1.5rem;
+  margin-left: 0.6rem;
+}
+
+/* Unten in der Mitte: Button */
+.termin {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: end;
+}
+
+.button {
+  display: inline-block;
+  padding: 0.55rem 1.3rem;
+  border: 1px solid var(--button-rand);
+  border-radius: 999px;
+  background: var(--button-grund);
+  color: var(--button-text);
+  backdrop-filter: blur(8px); /* falls der Button halbdurchsichtig ist */
+  letter-spacing: var(--sperrung);   /* gleicher Buchstabenabstand wie im Menü */
+  text-decoration: none;
+}
+
+.button:hover {
+  border-color: var(--button-hover);
+  color: var(--button-text);
+}
+
+/* Ganz unten: Fussbereich als durchgehende Zeile wie auf den Unterseiten
+   (links ©, rechts Impressum und Datenschutz) */
+.startseite .site-footer {
+  grid-column: 1 / -1;
+  grid-row: 3;
+  margin: 0;
+  padding: 0.75rem 0 0;
+}
+
+/* ==========================================================
+   UNTERSEITEN (Angebot, Über mich, Kontakt …)
+   ========================================================== */
+/* Der Fussbereich bleibt auch bei wenig Text unten am Bildschirm */
+body:not(.startseite) {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+body:not(.startseite) .site-header,
+body:not(.startseite) .site-footer {
+  width: 100%;
+}
+
+/* Navigation bleibt beim Scrollen oben stehen (nur Unterseiten; die Startseite passt
+   auf einen Bildschirm). Sobald man scrollt (Klasse «gescrollt», setzt js/main.js),
+   erscheint dahinter eine farbige Fläche in der Farbe vom oberen Teil des Fotos,
+   damit das Menü gut lesbar bleibt. Unten eine klare, harte Kante;
+   unter der Schrift gleich viel Fläche wie darüber.
+   Nur bei genug Bildschirmhöhe – bei starkem Zoom würde der feste Kopf zu viel verdecken. */
+@media (min-height: 34.01rem) {
+  body:not(.startseite) .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 10;               /* liegt über dem Inhalt (Pop-ups liegen trotzdem darüber) */
+  }
+
+  body:not(.startseite) .site-header::before {
+    content: "";
+    position: absolute;
+    /* Unter der Schrift gleich viel Fläche wie darüber (--kopf-oben):
+       der Kopf hat unten mehr Abstand (--rand), die Fläche hört um den Unterschied früher auf */
+    inset: 0 0 calc(var(--rand) - var(--kopf-oben));
+    z-index: -1;
+    /* gleiche Deckkraft wie die Karten und Pop-ups (78 %), dahinter weichgezeichnet; harte Kante unten */
+    background: color-mix(in oklab, var(--kopf-flaeche) 78%, transparent);
+    backdrop-filter: blur(14px);
+    opacity: 0;                /* unsichtbar, solange man ganz oben ist */
+    pointer-events: none;
+  }
+
+  .gescrollt body:not(.startseite) .site-header::before {
+    opacity: 1;
+  }
+
+  /* Springt man mit der Tastatur oder über einen Link nach unten,
+     bleibt das Ziel unter dem festen Kopf sichtbar */
+  html:has(body:not(.startseite)) {
+    scroll-padding-top: 7rem;
+  }
+}
+
+.seite {
+  flex: 1;
+  width: 100%;
+  max-width: 48rem;
+  margin: 0 auto;
+  padding: 1rem var(--rand) 4rem;
+}
+
+.karte {
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 1.25rem;
+  border: 1px solid var(--linie);
+  border-radius: var(--rundung);
+  background: var(--karte);
+  backdrop-filter: blur(8px);
+}
+
+/* Untertitel in allen Karten: gleicher Abstand zum Text davor wie in den Pop-ups */
+.karte h2 {
+  margin: var(--abstand-untertitel) 0 0.75rem;
+}
+
+/* Steht ein Untertitel ganz oben in der Karte, braucht er keinen Abstand nach oben */
+.karte > h2:first-child {
+  margin-top: 0;
+}
+
+/* ---------- Angebot: flauschige Kreise ---------- */
+.seite-kreise {
+  max-width: none;             /* ganze Bildschirmbreite, damit die Kreise sich gleichmässig verteilen */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;   /* Kreise stehen in der Mitte der Seite */
+  padding-bottom: 1rem;      /* wenig Abstand unten, damit alles auf einen Bildschirm passt */
+}
+
+/* Kreise locker verstreut wie Blüten: gleich gross, aber auf verschiedenen Höhen.
+   Auf schmalen Bildschirmen stehen sie untereinander (siehe weiter unten). */
+.kreise {
+  display: flex;
+  flex-wrap: nowrap;           /* immer alle drei in einer Reihe */
+  justify-content: space-evenly;   /* gleich viel Platz zwischen und neben den Kreisen */
+  align-items: flex-start;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Grösse jedes Kreises – min(100%, …) verhindert, dass etwas übersteht */
+/* Grösse: alle gleich gross, höchstens 40rem – aber nur so gross, dass
+   alles ohne Scrollen auf den Bildschirm passt:
+   - Breite: drei Kreise plus mindestens 3rem Abstand zwischen und neben ihnen
+     (100vw = ganze Bildschirmbreite)
+   - Höhe: Bildschirmhöhe minus Kopf und Fuss (100dvh = ganze Bildschirmhöhe),
+     geteilt durch 1.15, weil der mittlere Kreis tiefer steht
+   Nie kleiner als 9rem, damit die Schrift im Kreis Platz hat. */
+.kreis-platz {
+  --groesse: clamp(9rem, min((100vw - 17rem) / 3, (100dvh - 13.5rem) / 1.15), 40rem);
+  flex: none;
+  width: var(--groesse);
+}
+
+/* Asymmetrie: gleichmässig nebeneinander verteilt, aber auf verschiedenen Höhen.
+   Der Höhenversatz wächst mit der Grösse mit. */
+.kreis-platz:nth-child(2) { margin-top: calc(var(--groesse) * 0.15); }   /* tiefer */
+.kreis-platz:nth-child(3) { margin-top: calc(var(--groesse) * 0.07); }  /* etwas tiefer */
+
+/* Schmale Bildschirme: untereinander, abwechselnd links und rechts,
+   leicht überlappend – so bleibt es verspielt */
+@media (max-width: 52rem) {
+  .kreise {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  /* Untereinander: drei Kreise, die sich am weichen Rand etwas überlappen
+     (Höhe = 2.76 × Grösse), damit sie auch auf dem Handy ohne Scrollen passen */
+  .kreis-platz:nth-child(n) {
+    --groesse: clamp(9rem, min(92vw, (100dvh - 18rem) / 2.76), 40rem);
+    margin-top: calc(var(--groesse) * -0.12);
+  }
+
+  .kreis-platz:nth-child(1) { margin-top: 0; }
+  .kreis-platz:nth-child(2) { align-self: flex-end; }
+  .kreis-platz:nth-child(3) { margin-left: 8%; }
+}
+
+/* Der Kreis selbst ist nur der Knopf mit der Schrift.
+   Das flauschige Bällchen dahinter zeichnet ::before. */
+.kreis {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  aspect-ratio: 1;
+  padding: calc(var(--groesse, 13rem) * 0.16);   /* Abstand der Schrift zum Rand, wächst mit */
+  border: none;
+  border-radius: 50%;
+  isolation: isolate;          /* hält das Bällchen hinter der Schrift */
+  background: none;
+  color: var(--kreis-text);
+  text-shadow: var(--kreis-schein);   /* nur nachts: weicher Schein für die Lesbarkeit */
+  font: inherit;
+  /* Titel grösser als die übrige kleine Schrift; wächst etwas mit dem Kreis mit */
+  font-size: clamp(0.95rem, var(--groesse, 13rem) * 0.05, 1.4rem);
+  letter-spacing: var(--sperrung);
+  text-transform: uppercase;
+  line-height: 1.35;
+  overflow-wrap: break-word;   /* lange Wörter brechen notfalls um */
+  cursor: pointer;
+}
+
+/* Flauschige Kugel wie eine Pusteblume: innen die Farbe der Blüte,
+   nach aussen weiss, mit vielen feinen weissen Härchen am Rand.
+   Nicht ganz rund: leicht oval, etwas gedreht, und der Filter im HTML
+   macht den Rand wellig und flauschig. Die Einstellungen (--…) setzt
+   jeder Charakter weiter unten selbst. */
+.kreis::before {
+  content: "";
+  position: absolute;
+  inset: var(--form, 0);                   /* ungleiche Abstände = leicht oval */
+  z-index: -2;
+  rotate: var(--drehung, 0deg);
+  background:
+    /* innen Farbe, ganz weich und langsam übergehend in Weiss */
+    radial-gradient(ellipse closest-side, var(--kreis-farbe) 0, var(--kreis-innen) 42%, var(--kreis-rand) var(--koerper, 74%), transparent calc(var(--koerper, 74%) + 20%)),
+    /* weisse Härchen rundherum: Strahlen in zwei Dichten */
+    repeating-conic-gradient(var(--kreis-rand) 0 var(--strahl, 0.6deg), transparent var(--strahl, 0.6deg) var(--strahl-abstand, 2.2deg)),
+    repeating-conic-gradient(from 1deg, var(--kreis-rand) 0 0.4deg, transparent 0.4deg 3.3deg);
+  /* Härchen werden nach aussen immer zarter */
+  mask: radial-gradient(ellipse closest-side, #000 var(--haar-start, 66%), rgba(0, 0, 0, 0.55) 86%, transparent 100%);
+  filter: var(--filter, url(#flausch));
+}
+
+/* ---------- Jeder Kreis hat seinen eigenen Charakter ---------- */
+
+/* Sanft: weich und flauschig, Härchen fein verwischt */
+.kreis-sanft {
+  --form: 0 5% 3% 0;
+  --drehung: -12deg;
+  --strahl: 0.5deg;
+  --strahl-abstand: 1.8deg;
+  --haar-start: 68%;
+  --filter: url(#flausch);
+}
+
+/* Fluffig: dichte, watteweiche Härchen, ganz verschwommen */
+.kreis-fluffig {
+  --form: 5% 0 0 3%;
+  --drehung: 18deg;
+  --koerper: 78%;
+  --strahl: 0.5deg;
+  --strahl-abstand: 1.4deg;
+  --haar-start: 70%;
+  --filter: url(#flausch-stark);
+}
+
+/* Wolkig: weich, mit sanft welligem Umriss */
+.kreis-wolkig {
+  --form: 0 3% 5% 1%;
+  --drehung: 32deg;
+  --filter: url(#flausch);
+}
+
+.kreis-rosa  { --kreis-farbe: var(--kreis-rosa);  --kreis-innen: var(--kreis-rosa-innen); }
+
+/* Fokus-Rahmen folgt der runden Form */
+.kreis:focus-visible {
+  outline-offset: 2px;
+}
+
+/* ---------- Weiche Karte: ohne Rand, leicht abgerundet, weicher Schatten ----------
+   Gilt für die Pop-ups (Angebot und Startseite) und den Text auf «Über mich» */
+.popup,
+.karte-weich {
+  color: var(--text);
+  border: none;                /* keine scharfe Kante */
+  border-radius: 0.5rem;       /* nur leicht abgerundet */
+  box-shadow: 0 1rem 3rem var(--schatten-weich);   /* weicher Schatten statt Rand */
+  backdrop-filter: blur(14px);
+  /* Buttons darin (Pop-up, «Ablauf») im gleichen hellen Rosa wie die Kreise */
+  --button-grund: var(--kreis-rosa);
+  --button-text: var(--kreis-text);
+  --button-rand: var(--kreis-rosa);
+}
+
+/* Der Button ist hier nicht durchsichtig – Weichzeichnen dahinter wäre unsichtbar, kostet aber Rechenzeit */
+.popup .button,
+.karte-weich .button {
+  backdrop-filter: none;
+}
+
+/* Titel in der weichen Karte grösser als der Text, in Grossbuchstaben */
+.karte.popup h2,
+.karte.karte-weich h1 {
+  font-size: 1.5rem;
+  margin: 0 0 0.75rem;
+  letter-spacing: var(--sperrung);
+  text-transform: uppercase;
+  text-shadow: none;
+}
+
+/* Beschreibung direkt unter dem Titel (z. B. Berufsbezeichnung unter «Sharleena»):
+   dezent und elegant – etwas kleiner und sanfter, darunter ein kurzer feiner
+   Strich in Altrosa, der sie ruhig vom Text trennt. */
+.untertitel {
+  max-width: 30rem;            /* kompakte Zeilen */
+  margin: -0.25rem 0 2rem;
+  padding-bottom: 1.25rem;     /* Platz für den Strich */
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text-sanft);
+  background: linear-gradient(var(--akzent), var(--akzent)) no-repeat left bottom / 2.5rem 1px;
+}
+
+/* Teil der Beschreibung, der nicht umbrechen soll (z. B. «Fachrichtung … (TEN)»).
+   Nur auf breiteren Bildschirmen – auf dem Handy darf er umbrechen, sonst ragt er hinaus. */
+@media (min-width: 40rem) {
+  .eine-zeile {
+    white-space: nowrap;
+  }
+}
+
+/* ---------- Pop-up mit dem ganzen Text ---------- */
+.popup {
+  width: min(48rem, 100% - 2rem);   /* etwas breiter (vorher 40rem), auf dem Handy volle Breite */
+  max-height: 85vh;
+  max-height: 85dvh;
+  margin: auto;                /* in der Mitte des Bildschirms */
+  overflow: auto;              /* langer Text: im Pop-up scrollen */
+}
+
+/* Die Seite dahinter wird milchig, damit der Blick beim Text bleibt */
+.popup::backdrop {
+  background: var(--milch);
+  backdrop-filter: blur(6px);
+}
+
+/* Platz für das X neben dem Titel, und mehr Abstand zwischen Titel und Text */
+.karte.popup h2 {
+  padding-right: 2.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.popup p:last-child {
+  margin-bottom: 0;
+}
+
+/* Rangordnung im Pop-up:
+   1. Titel (h2): gross, Grossbuchstaben (siehe oben)
+   2. Untertitel (h3, z. B. «Wie die Pflanzen zu dir kommen»): klein, Grossbuchstaben, weit gesperrt
+   3. Begriffe (dt, z. B. «Tees»): normal geschrieben, so gross wie der Text, in Altrosa */
+.popup h3 {
+  margin: var(--abstand-untertitel) 0 0.75rem;   /* viel Luft zum Text davor – überall gleich */
+  font-size: calc(var(--schrift-klein) * 1.2);   /* so gross wie die Schwerpunkte auf der Startseite */
+  font-weight: 400;
+  letter-spacing: var(--sperrung);
+  text-transform: uppercase;
+}
+
+.formen {
+  margin: 0;
+}
+
+.formen dt {
+  margin: 2rem 0 0.25rem;      /* Abstand zum Text davor */
+  color: var(--akzent);
+}
+
+/* Der erste Begriff direkt unter dem Untertitel braucht weniger Abstand */
+.formen dt:first-child {
+  margin-top: 0;
+}
+
+.formen dd {
+  margin: 0;
+}
+
+/* Temperamente in «Humoralmedizin» (Aufklapp-Teil): eine ruhige, kompakte Liste.
+   Auf breiteren Bildschirmen steht die Beschreibung NEBEN dem Temperament
+   (zwei Spalten), auf dem Handy darunter. Vor jedem Temperament ein kurzer feiner Strich. */
+.mehr .formen dt {
+  margin: 0.6rem 0 0;
+  color: var(--text);          /* zurückhaltend: normale Textfarbe statt Altrosa */
+}
+
+.mehr .formen dt:first-child {
+  margin-top: 0.4rem;
+}
+
+.mehr .formen dt::before {
+  content: "";
+  display: inline-block;
+  width: 0.75rem;              /* kurzer Strich */
+  height: 1px;
+  margin-right: 0.5rem;
+  vertical-align: middle;
+  background: var(--akzent);
+}
+
+.mehr .formen dd {
+  margin-left: 1.25rem;        /* auf dem Handy: bündig unter dem Temperament */
+  color: var(--text-sanft);
+}
+
+@media (min-width: 40rem) {
+  .mehr .formen {
+    display: grid;
+    grid-template-columns: max-content 1fr;   /* links Temperament, rechts Beschreibung */
+    gap: 0.3rem 1.5rem;
+  }
+
+  .mehr .formen dt,
+  .mehr .formen dt:first-child,
+  .mehr .formen dd {
+    margin: 0;
+  }
+
+  .mehr .formen {
+    margin-top: 0.5rem;
+  }
+}
+
+/* «Termin buchen» unten im Pop-up, mit etwas Abstand zum Text */
+.popup .popup-aktion,
+.karte-weich .popup-aktion {
+  margin: 1.75rem 0 0;
+}
+
+/* Button waagrecht in der Mitte (z. B. «Preise»: unter den Preisen),
+   mit gleich viel Abstand nach oben wie vor einem Untertitel */
+.karte-weich .aktion-mitte {
+  margin-top: var(--abstand-untertitel);
+  text-align: center;
+}
+
+/* X oben rechts – Klickfläche 2rem × 2rem (über 24 px) */
+.popup-zu {
+  float: right;
+  display: grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin: -0.5rem -0.75rem 0 0;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--akzent);
+  cursor: pointer;
+}
+
+.popup-zu svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.popup-zu:hover {
+  color: var(--akzent-dunkler);
+}
+
+/* ---------- Akkordeon im Pop-up (z. B. Schröpfen bei der Massage) ---------- */
+.mehr {
+  margin-top: 1.5rem;
+  border-top: 1px solid var(--linie);
+}
+
+/* Mehrere Aufklapp-Teile direkt untereinander: kein zusätzlicher Abstand */
+.mehr + .mehr {
+  margin-top: 0;
+}
+
+.mehr summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  min-height: 1.5rem;          /* Klickfläche mindestens 24 px hoch */
+  padding: 0.75rem 0;
+  font-size: var(--schrift-klein);
+  letter-spacing: var(--sperrung);
+  text-transform: uppercase;
+  color: var(--akzent);
+  cursor: pointer;
+  list-style: none;            /* Standard-Dreieck des Browsers ausblenden */
+}
+
+.mehr summary::-webkit-details-marker {
+  display: none;               /* dasselbe für Safari */
+}
+
+.mehr summary:hover {
+  color: var(--akzent-dunkler);
+}
+
+/* Kleiner Pfeil, aus zwei Rahmenlinien gezeichnet: zu = nach unten, offen = nach oben */
+.mehr summary::after {
+  content: "";
+  flex: none;
+  width: 0.45rem;
+  height: 0.45rem;
+  margin: -0.25rem 0.25rem 0 0;
+  border-right: 1px solid currentColor;
+  border-bottom: 1px solid currentColor;
+  rotate: 45deg;
+}
+
+.mehr[open] summary::after {
+  margin-top: 0.2rem;
+  rotate: 225deg;
+}
+
+/* ---------- «Über mich»: links Foto, rechts Text ---------- */
+.seite-zweispaltig {
+  max-width: 72rem;
+}
+
+/* Auf schmalen Bildschirmen untereinander (Foto oben), ab 52rem nebeneinander */
+.zwei-spalten {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+.foto-platz {
+  width: min(100%, 28rem);
+  justify-self: center;
+  aspect-ratio: 3 / 4;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+@media (min-width: 52rem) {
+  /* Breite des Fotos: so, dass es ganz auf den Bildschirm passt – höchstens so hoch
+     wie der Platz unter der festen Navigation (100dvh − 8rem). Bei 3:4 ist die
+     Breite ¾ dieser Höhe, aber nie mehr als 24rem. */
+  .zwei-spalten {
+    --foto-breite: min(24rem, (100dvh - 8rem) * 0.75);
+    /* links genau so breit wie das Foto, rechts bekommt der Text den ganzen restlichen Platz */
+    grid-template-columns: var(--foto-breite) minmax(0, 1fr);
+  }
+
+  /* Beim Scrollen durch den Text bleibt das Foto unter der Navigation stehen */
+  .foto-platz {
+    width: var(--foto-breite);
+    position: sticky;
+    top: 6rem;
+  }
+}
+
+.foto-platz img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;           /* Foto füllt die Fläche, ohne verzerrt zu werden */
+}
+
+/* Platzhalter, bis das Foto da ist */
+.foto-platzhalter {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 1rem;
+  border: 1px dashed var(--linie);
+  border-radius: inherit;
+  background: var(--glas);
+  color: var(--text-sanft);
+  font-size: var(--schrift-klein);
+  letter-spacing: var(--sperrung);
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ---------- Angebot: zarter Knopf unter den Kreisen, öffnet das Pop-up «Ablauf» ---------- */
+.ablauf-link {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  font-size: var(--schrift-klein);
+  letter-spacing: var(--sperrung);
+  text-transform: uppercase;
+  /* weicher Lichtschein, damit der Link vor dem Foto lesbar bleibt */
+  text-shadow: 0 0 0.3rem var(--grund), 0 0 0.8rem var(--grund), 0 0 1.6rem var(--grund);
+}
+
+.ablauf-link button {
+  display: inline-block;
+  padding: 0.35rem 0;          /* Klickfläche mindestens 24 px hoch */
+  border: none;
+  background: none;            /* sieht aus wie ein Link, nicht wie ein Knopf */
+  color: var(--text);
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  text-shadow: inherit;
+  cursor: pointer;
+}
+
+.ablauf-link button:hover {
+  color: var(--akzent);
+}
+
+/* ---------- Ablauf: nummerierte Schritte ---------- */
+.schritte {
+  margin: 1.5rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: schritt;       /* zählt die Schritte: 1, 2, 3 … */
+}
+
+.schritte li {
+  position: relative;
+  padding-left: 2.75rem;
+  counter-increment: schritt;
+}
+
+.schritte li + li {
+  margin-top: 1.5rem;
+}
+
+/* Die Nummer in einem kleinen, hellrosa Kreis */
+.schritte li::before {
+  content: counter(schritt);
+  position: absolute;
+  left: 0;
+  top: -0.1rem;
+  display: grid;
+  place-items: center;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--kreis-rosa);
+  color: var(--kreis-text);
+  font-size: var(--schrift-klein);
+}
+
+.karte.karte-weich .schritte h2,
+.popup .schritte h3 {
+  margin: 0 0 0.35rem;         /* im Pop-up «Ablauf» stehen die Schritte gleich wie auf der Seite */
+}
+
+.schritte p {
+  margin: 0;
+}
+
+/* Mehrere Absätze in einem Schritt: etwas Abstand dazwischen */
+.schritte p + p {
+  margin-top: 0.75rem;
+}
+
+/* Abschliessender Satz unter den Schritten, etwas abgesetzt */
+.schluss {
+  margin: 2rem 0 0;
+  color: var(--text-sanft);
+}
+
+address {
+  font-style: normal;
+}
+
+/* ---------- Preise ---------- */
+/* Kurze Beschreibung unter dem Titel einer Leistung, etwas sanfter */
+.hinweis {
+  margin: 0 0 0.5rem;
+  color: var(--text-sanft);
+}
+
+/* Preiszeilen: links die Leistung, rechts der Preis, darunter eine feine Linie */
+.preisliste {
+  margin: 0 0 1rem;
+  padding: 0;
+  list-style: none;
+}
+
+.preisliste li {
+  display: flex;
+  flex-wrap: wrap;             /* auf ganz schmalen Handys rutscht der Preis in die nächste Zeile */
+  justify-content: space-between;
+  gap: 0 1.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid var(--linie);
+}
+
+.preisliste li span:last-child {
+  white-space: nowrap;         /* «CHF 95» wird nie getrennt */
+}
+
+/* ---------- Preise und Kontakt: auf grossen Bildschirmen zwei Spalten ----------
+   Zwei Spalten und etwas engere Abstände, damit die ganze Seite
+   ohne Scrollen auf einen Bildschirm passt.
+   Preise: links die Preise und darunter mittig «Termin buchen», rechts Krankenkasse,
+   Absagen, Bezahlung und der Absatz zum kleinen Budget.
+   Kontakt: links der Text mit Adresse, rechts die Karte von Google Maps.
+   Auf dem Handy bleibt alles untereinander. */
+@media (min-width: 60rem) {
+  .seite-breit {
+    max-width: 68rem;          /* breitere Karte für zwei Spalten */
+    padding-bottom: 1rem;      /* wenig Abstand zur Fusszeile */
+  }
+
+  .karten-spalten {
+    display: grid;
+    grid-template-columns: 1fr 1fr;   /* zwei gleich breite Spalten */
+    gap: 0 3.5rem;
+  }
+
+  /* Der erste Titel bzw. Absatz jeder Spalte steht ganz oben */
+  .seite-breit .karte.karte-weich .karten-spalte > :first-child {
+    margin-top: 0;
+  }
+
+  .seite-breit .preisliste li {
+    padding: 0.35rem 0;
+  }
+
+  .seite-breit .preisliste {
+    margin-bottom: 0.75rem;
+  }
+
+  .seite-breit .karte-weich address {
+    margin: 1rem 0;
+  }
+
+  /* Kontakt: die Karte füllt die ganze rechte Spalte, darunter der Link */
+  .spalte-karte {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .spalte-karte .karte-ort {
+    flex: 1;
+    min-height: 16rem;
+  }
+
+  .spalte-karte .karte-ort iframe {
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .spalte-karte .ort-link {
+    margin-bottom: 0;
+  }
+
+}
+
+/* ---------- Karte auf «Kontakt» (Google Maps) ---------- */
+.karte-ort {
+  margin: 0 0 0.5rem;
+  border-radius: 0.5rem;
+  overflow: hidden;            /* runde Ecken auch für die Karte */
+}
+
+.karte-ort iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 0;
+}
+
+/* Link darunter: öffnet die Karte gross (auf dem Handy in der Karten-App) */
+.ort-link {
+  margin: 0 0 1.5rem;
+  font-size: var(--schrift-klein);
+  letter-spacing: var(--sperrung);
+  text-transform: uppercase;
+}
+
+.ort-link a {
+  display: inline-block;
+  padding: 0.35rem 0;          /* Klickfläche mindestens 24 px hoch */
+  text-decoration: none;
+}
+
+/* Adresse auf «Kontakt»: etwas Abstand zum Text davor und danach */
+.karte-weich address {
+  margin: 1.5rem 0;
+}
+
+/* ==========================================================
+   KOPFBEREICH AUF SCHMALEN BILDSCHIRMEN
+   «Sharleena» bleibt oben links. Menü und Sprache / Tag-Nacht
+   rutschen in eine zweite Zeile, linksbündig.
+   ========================================================== */
+@media (max-width: 60rem), (max-height: 34rem) {
+  .site-header {
+    column-gap: 1rem;
+  }
+
+  .kopf-rechts {
+    grid-column: 1 / -1;
+    justify-self: start;
+    column-gap: 2rem;
+  }
+
+  .kopf-rechts,
+  .nav-list {
+    justify-content: flex-start;
+    white-space: normal;
+  }
+}
+
+/* ==========================================================
+   HANDY, SCHMALE ODER NIEDRIGE BILDSCHIRME
+   Alles untereinander, man darf scrollen.
+   ========================================================== */
+@media (max-width: 52rem), (max-height: 34rem) {
+  .startseite {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .startseite main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+    flex: 1;
+    text-align: center;
+  }
+
+  /* Alles in die Mitte statt an den Rand */
+  .schwerpunkte,
+  .termin,
+  .startseite .site-footer {
+    align-self: center;
+  }
+
+  .startseite .site-footer,
+  .schwerpunkte {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* Titel auf dem Handy: mittig und so gross, dass das längste Wort noch hineinpasst */
+  .titel-start {
+    max-width: none;           /* auf dem Handy darf er die ganze Breite nutzen */
+    font-size: min(calc(var(--schrift-klein) * 4), 6.5vw);
+    text-align: center;
+  }
+
+  /* Auf dem Handy liegt der klare Fleck in der Bildmitte */
+  .buehne {
+    --klar-x: 50%;
+    --klar-y: 50%;
+  }
+}
+
+/* ==========================================================
+   ANIMATIONEN
+   Nur für Menschen, die Bewegung NICHT abgeschaltet haben.
+   Bei «prefers-reduced-motion: reduce» bewegt sich nichts.
+   Alles ist langsam, damit die Seite ruhig bleibt.
+   ========================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Der klare Fleck gleitet langsam hinter der Maus her (Werte setzt main.js auf .buehne) */
+  .buehne {
+    transition: --maus-x 2.5s ease-out, --maus-y 2.5s ease-out;
+  }
+
+  a,
+  .button {
+    transition: color 0.4s ease, background-color 0.4s ease, border-color 0.4s ease;
+  }
+
+  .nav-list a,
+  .logo {
+    transition: background-size 0.6s ease, color 0.4s ease;
+  }
+
+  .sprache,
+  .thema-schalter {
+    transition: opacity 0.4s ease;
+  }
+
+  /* Fläche hinter der Navigation blendet beim Scrollen weich ein */
+  body:not(.startseite) .site-header::before {
+    transition: opacity 0.4s ease, background-color 0.8s ease;
+  }
+
+  /* Kreise schweben ganz langsam, jeder in seinem eigenen Takt */
+  .kreis {
+    animation: schweben 8s ease-in-out infinite alternate;
+    transition: scale 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+  .kreis-platz:nth-child(2) .kreis { animation-duration: 10s; animation-delay: -4s; }
+  .kreis-platz:nth-child(3) .kreis { animation-duration: 9s;  animation-delay: -7s; }
+
+  /* Kreise: wachsen beim Darüberfahren ganz leicht, wie ein Atemzug */
+  .kreis:hover,
+  .kreis:focus-visible {
+    scale: 1.05;
+  }
+
+  /* Akkordeon: der Pfeil dreht sich sanft, der Text blendet weich ein */
+  .mehr summary::after {
+    transition: rotate 0.5s ease, margin-top 0.5s ease;
+  }
+
+  .mehr[open] .mehr-inhalt {
+    animation: einblenden 0.6s ease-out both;
+  }
+
+  /* Pop-up blendet weich ein */
+  .popup:popover-open,
+  .popup:popover-open::backdrop {
+    animation: einblenden 0.5s ease-out both;
+  }
+
+  .schwerpunkte button::after {
+    transition: width 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), margin-left 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  }
+
+  /* Fliessender Seitenwechsel: der Browser blendet die alte Seite weich in die neue über
+     («View Transitions» – ganz ohne JavaScript; ältere Browser wechseln einfach normal).
+     Das Foto, der Name und das Menü bekommen einen eigenen Namen: so bleiben sie
+     ruhig stehen, und nur der Inhalt dazwischen blendet über.
+     (Nicht der ganze Kopf: sonst würde «Multiplizieren» bei Sprache / Tag-Nacht nicht wirken.) */
+  @view-transition {
+    navigation: auto;
+  }
+
+  .buehne {
+    view-transition-name: hintergrund;
+  }
+
+  .logo {
+    view-transition-name: name;
+  }
+
+  .site-header nav {
+    view-transition-name: menue;
+  }
+
+  /* Dauer und Weichheit der Überblendung */
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation-duration: 0.7s;
+    animation-timing-function: ease;
+  }
+
+  /* Startseite: das Foto taucht weich aus dem Milchglas auf */
+  .startseite .buehne {
+    animation: auftauchen 2.5s ease-out backwards;
+  }
+
+  /* Ist die Maus auf der Seite, lichtet sich der Nebel langsam –
+     überall gleichmässig, ohne sichtbare Kante oder Kreis */
+  .milch,
+  .schwaden {
+    transition: opacity 2.5s ease, scale 4s ease;
+  }
+
+  html:hover .milch {
+    opacity: 0.45;
+  }
+
+  /* Die Schwaden werden blasser und weichen etwas auseinander */
+  html:hover .schwaden {
+    opacity: 0.35;
+    scale: 1.25;
+  }
+
+  /* Nebelschwaden ziehen sehr langsam vorbei, jede in ihrem eigenen Tempo.
+     Zusätzlich weichen sie ein wenig der Maus aus. */
+  .schwaden span {
+    animation: vorbeiziehen 38s ease-in-out infinite alternate;
+    translate: calc(var(--maus-x) * -90px) calc(var(--maus-y) * -45px);
+  }
+  .schwaden span:nth-child(2) { animation-duration: 30s; animation-delay: -12s; animation-direction: alternate-reverse; }
+  .schwaden span:nth-child(3) { animation-duration: 46s; animation-delay: -25s; }
+
+  /* Das ganze Foto gleitet sanft mit der Maus mit (leicht vergrössert, damit kein Rand sichtbar wird) */
+  .fotos {
+    scale: 1.08;
+    translate: calc(var(--maus-x) * -70px) calc(var(--maus-y) * -45px);
+  }
+
+  /* Weicher Übergang beim Wechsel zwischen Tag und Nacht */
+  body {
+    transition: background-color 0.8s ease, color 0.8s ease;
+  }
+
+  /* Die fliessende scharfe Fläche verändert langsam ihre Form (eine Runde in 40 Sekunden) */
+  .buehne.fliessend {
+    animation: formwandel 40s linear infinite;
+  }
+
+  .startseite .buehne.fliessend {
+    animation: auftauchen 2.5s ease-out backwards, formwandel 40s linear infinite;
+  }
+
+  @keyframes formwandel {
+    to { --welle-phase: 360deg; }
+  }
+
+  @keyframes vorbeiziehen {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(85vw, -6vh) scale(1.2); }
+  }
+
+  /* Sanftes Schweben: ein wenig hoch und zur Seite, dann zurück */
+  @keyframes schweben {
+    from { translate: 0 0; }
+    50%  { translate: 0.3rem -0.6rem; }
+    to   { translate: -0.2rem -1rem; }
+  }
+
+  @keyframes einblenden {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes auftauchen {
+    from { opacity: 0; filter: blur(20px); }
+    to   { opacity: 1; filter: blur(0); }
+  }
+}

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="robots" content="noindex, nofollow">
+  <script src="passwort.js"></script>
+  <!-- Sicherheit: Die Seite darf nur eigene Dateien laden (keine fremden Skripte oder Dienste) -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; object-src 'none'; base-uri 'self'; form-action 'none'">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sharleena – Naturopathy in Zurich</title>
+  <meta name="description" content="Naturopathy by Sharleena in Zurich: phytotherapy, classical massage and nutritional counselling.">
+  <!-- Setzt Tag oder Nacht sofort, damit die Seite nicht kurz falsch aufblitzt -->
+  <script src="js/thema.js"></script>
+  <link rel="alternate" hreflang="de-CH" href="index.html">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- "defer" heisst: Das Skript wird erst ausgeführt, wenn die Seite geladen ist -->
+  <script src="js/main.js" defer></script>
+</head>
+<!-- Die Klasse "startseite" verteilt alles auf einen Bildschirm -->
+<body class="startseite">
+  <!-- Für Tastatur- und Screenreader-Nutzende: springt direkt zum Inhalt -->
+  <a class="skip-link" href="#inhalt">Skip to content</a>
+
+  <!-- Hintergrund: Foto hinter Milchglas. aria-hidden="true" und alt="" heissen:
+       nur Schmuck, Screenreader überspringen das.
+       FOTOS: Welches Foto erscheint, wählt js/main.js bei jedem Besuch neu (Liste dort).
+       Hier steht nur das Foto für Besuche ohne JavaScript. Mit --fokus-x / --fokus-y
+       angeben, wo im Foto das Motiv ist (0% = links/oben, 100% = rechts/unten). -->
+  <div class="buehne vertraeumt" aria-hidden="true" style="--fokus-x: 57%; --fokus-y: 45%">
+    <div class="fotos">
+      <!-- Ohne src: js/main.js setzt das Foto ein. So wird nur EIN Foto geladen. -->
+      <img class="foto foto-milchig" alt="">
+      <img class="foto foto-scharf" alt="">
+      <!-- Nur für Besuche ohne JavaScript -->
+      <noscript>
+        <img class="foto foto-milchig" src="bilder/sternbluete.jpg" alt="">
+        <img class="foto foto-scharf" src="bilder/sternbluete.jpg" alt="">
+      </noscript>
+    </div>
+    <div class="milch"></div>
+    <div class="schwaden"><span></span><span></span><span></span></div>
+    <div class="korn"></div>
+  </div>
+
+  <!-- Wellen-Filter: verzerrt das Foto sanft wie Wasser. Die Stärke ("scale")
+       setzt js/main.js, wenn die Maus sich bewegt – sonst ist sie 0. -->
+  <svg class="filter-vorlage" aria-hidden="true" focusable="false">
+    <filter id="welle" x="-5%" y="-5%" width="110%" height="110%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.008 0.02" numOctaves="2" seed="4" result="rauschen">
+        <animate attributeName="baseFrequency" dur="16s" values="0.008 0.02; 0.01 0.025; 0.008 0.02" repeatCount="indefinite"/>
+      </feTurbulence>
+      <feDisplacementMap in="SourceGraphic" in2="rauschen" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+  </svg>
+
+  <!-- Kopfbereich: links der Name, rechts Menü und mit Abstand Sprache / Tag-Nacht -->
+  <header class="site-header">
+    <!-- Oben links: Name, führt zur Startseite -->
+    <a class="logo" href="index-en.html" aria-current="page">Sharleena</a>
+    <div class="kopf-rechts">
+      <nav aria-label="Main navigation">
+        <ul class="nav-list">
+          <li><a href="angebot-en.html">Services</a></li>
+          <li><a href="preise-en.html">Prices</a></li>
+          <li><a href="ueber-mich-en.html">About me</a></li>
+          <li><a href="kontakt-en.html">Contact</a></li>
+        </ul>
+      </nav>
+      <!-- Sprache und Tag/Nacht: eigene kleine Gruppe rechts neben dem Menü, blass wie der Titel der Startseite -->
+      <div class="schalter">
+        <!-- Sprachschalter: ein normaler Link zur gleichen Seite in der anderen Sprache (geht auch ohne JavaScript).
+             Sichtbar nur die Abkürzung; aria-label lässt Screenreader das ganze Wort vorlesen -->
+        <a class="sprache" href="index.html" lang="de-CH" hreflang="de-CH" aria-label="Deutsch">DE</a>
+        <span class="trenner" aria-hidden="true"></span>
+        <!-- Tag/Nacht-Schalter: Sonne und Mond. Das Symbol des aktuellen Modus ist hervorgehoben.
+             aria-label gibt Screenreadern den Namen, aria-pressed sagt, ob der Nachtmodus an ist. -->
+        <button class="thema-schalter" type="button" aria-pressed="false" aria-label="Night mode" hidden>
+          <svg class="sonne" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="12" cy="12" r="4.2"/>
+            <path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/>
+          </svg>
+          <svg class="mond" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="inhalt">
+    <!-- Hauptüberschrift: links in der Mitte, gross und leicht durchsichtig -->
+    <h1 class="titel-start">Naturopathy in Zurich</h1>
+
+    <!-- Links in der Mitte: die Schwerpunkte. Ein Klick öffnet das Pop-up mit der Erklärung (geht ohne JavaScript) -->
+    <section class="schwerpunkte" aria-labelledby="schwerpunkte-titel">
+      <!-- Titel unsichtbar, nur für Screenreader -->
+      <h2 class="nur-vorlesen" id="schwerpunkte-titel">Focus areas</h2>
+      <ul>
+        <li><button type="button" popovertarget="text-classical-massage">Classical massage</button></li>
+        <li><button type="button" popovertarget="text-herbal-medicine">Phytotherapy</button></li>
+        <li><button type="button" popovertarget="text-nutritional-counselling">Nutritional counselling</button></li>
+      </ul>
+    </section>
+
+    <!-- Unten in der Mitte: Button -->
+    <div class="termin">
+      <a class="button" href="kontakt-en.html">Book an appointment</a>
+    </div>
+
+    <!-- Pop-ups der Schwerpunkte: derselbe Text wie auf angebot-en.html.
+         Wichtig: Textänderungen immer in BEIDEN Dateien machen. -->
+    <section class="karte popup" id="text-classical-massage" popover aria-labelledby="titel-classical-massage">
+      <!-- X zum Schliessen; aria-label sagt Screenreadern, was der Knopf tut -->
+      <button class="popup-zu" type="button" popovertarget="text-classical-massage" popovertargetaction="hide" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <h2 id="titel-classical-massage">Classical massage</h2>
+      <p>Complemented with cupping and foot reflexology, tailored to you.</p>
+      <p>In my massages I give your body impulses for relaxation, self-regulation and recovery. Your body carries within it the ability to find its way back into balance. The massage creates the space for this.</p>
+      <p>The foundation is classical massage. With targeted techniques I release tension in the muscles and connective tissue, stimulate circulation and bring your nervous system to rest.</p>
+      <p>Depending on your complaints and how you feel, I complement the treatment with cupping or with elements of foot reflexology. Before each treatment we take time for a short conversation so that I can respond to your wishes and needs.</p>
+      <p>Feeling instead of analysing. You can simply be here, breathe and feel.</p>
+      <!-- Akkordeon: klappt beim Klicken auf (geht ohne JavaScript) -->
+      <details class="mehr" id="cupping">
+        <summary>Cupping</summary>
+        <div class="mehr-inhalt">
+          <p>A traditional drawing-out method</p>
+          <p>Cupping is one of the so-called drawing-out methods. Cups are placed on the skin using negative pressure. The suction stimulates circulation in the tissue and can loosen muscles and connective tissue. According to traditional European understanding, cupping is also said to stimulate the flow of lymph and to support the body in its own cleansing processes.</p>
+          <p>I place the cups on specific areas or move them gently over the skin as a cupping massage, entirely according to your needs. Cupping combines well with classical massage.</p>
+          <p>The negative pressure can temporarily cause reddish to purple discolouration of the skin. This is generally harmless and usually fades within a few days.</p>
+        </div>
+      </details>
+      <details class="mehr" id="reflexology">
+        <summary>Foot reflexology</summary>
+        <div class="mehr-inhalt">
+          <p>A holistic approach through the feet</p>
+          <p>Foot reflexology is based on the idea that the whole body is reflected in the feet. Each organ and each region of the body is assigned to a particular zone on the foot. In this way, the whole body can be reached through the feet. According to traditional understanding, treating these zones can stimulate the body’s self-regulation, release tension and support inner balance.</p>
+          <p>With gentle, targeted pressure on the reflex zones, I address your body on a different level. I adapt the treatment to how you are feeling and give attention to areas that need particular care. Many people find foot reflexology deeply relaxing and experience a sense of calm and groundedness afterwards.</p>
+          <p>Individual zones may feel sensitive during the treatment. This is normal and often gives an indication of where in the body something is currently out of balance. I always adjust the intensity together with you.</p>
+        </div>
+      </details>
+      <!-- Aufruf zum Handeln: führt zur Kontaktseite -->
+      <p class="popup-aktion"><a class="button" href="kontakt-en.html">Book an appointment</a></p>
+    </section>
+    <section class="karte popup" id="text-herbal-medicine" popover aria-labelledby="titel-herbal-medicine">
+      <button class="popup-zu" type="button" popovertarget="text-herbal-medicine" popovertargetaction="hide" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <h2 id="titel-herbal-medicine">Phytotherapy – Herbal medicine</h2>
+      <p>Plants are among humanity’s oldest remedies. Phytotherapy, also known as herbal medicine, uses flowers, leaves, roots, bark and seeds. It gently supports your body and stimulates your self-healing powers.</p>
+      <h3>My approach</h3>
+      <p>My work with plants is strongly shaped by <a href="#humoral-medicine">humoral medicine</a>. This ancient theory of the bodily fluids is one of the foundations of Traditional European Naturopathy (TEN). It sees the person as a whole. Each of us has our own constitution, our own temperament.</p>
+      <p>Plants have a character too. They have a warming or cooling, moistening or drying effect. That is why I do not simply choose “a remedy for” a symptom. I look for plants that suit you and your current state and help you find your inner balance again.</p>
+      <h3>How the plants reach you</h3>
+      <!-- Die Formen als Liste: Begriff (dt) und Erklärung (dd) -->
+      <dl class="formen">
+        <dt>Teas</dt>
+        <dd>The most original form of herbal medicine. Hot water is poured over dried plant parts, which release their active substances. A tea has a mild effect and is well suited to longer use. Even the preparation becomes a small ritual for yourself.</dd>
+        <dt>Tinctures</dt>
+        <dd>Here plants are steeped in alcohol. It extracts the active substances and keeps them for a long time. Just a few drops are enough, so tinctures are easy to fit into your daily life.</dd>
+        <dt>Spagyric blends</dt>
+        <dd>Spagyrics goes back to the alchemical tradition and to Paracelsus. The plant is fermented and distilled. The residues are reduced to ash, and the mineral salts obtained are returned to the distillate. In this way the whole plant with all its components is meant to be preserved.</dd>
+        <dt>Ready-made herbal medicines</dt>
+        <dd>These are tested and approved herbal medicinal products from the pharmacy or chemist. Their content of active substances is standardised and their dosage precisely defined.</dd>
+      </dl>
+      <p>We will decide together which form suits you best.</p>
+      <!-- Akkordeon: klappt beim Klicken auf (geht ohne JavaScript) -->
+      <details class="mehr" id="humoral-medicine">
+        <summary>Humoral medicine</summary>
+        <div class="mehr-inhalt">
+          <p>Humoral medicine, also known as the theory of the four humours, is one of Europe’s oldest healing concepts. It goes back to the Greek physician Hippocrates and was later developed further by the Roman physician Galen. It shaped European medicine until the 19th century.</p>
+          <p>According to this theory, four fluids are at work in the body: blood, phlegm, yellow bile and black bile. Each fluid has particular qualities and is warm or cold, moist or dry. When the fluids are in balance, we feel well. If this balance is disturbed, complaints can arise according to traditional understanding.</p>
+          <p>Which fluid predominates in a person shapes their constitution, their temperament:</p>
+          <dl class="formen">
+            <dt>Sanguine (blood)</dt>
+            <dd>warm and moist, cheerful and sociable</dd>
+            <dt>Choleric (yellow bile)</dt>
+            <dd>warm and dry, energetic and passionate</dd>
+            <dt>Melancholic (black bile)</dt>
+            <dd>cold and dry, profound and careful</dd>
+            <dt>Phlegmatic (phlegm)</dt>
+            <dd>cold and moist, calm and balanced</dd>
+          </dl>
+          <p>Plants have these qualities too. Ginger, for example, warms and dries, whereas mallow cools and moistens. This allows me to restore balance in a targeted way: someone who carries too much cold within them will tend to receive warming plants.</p>
+          <p>Today we no longer understand the four humours literally, but as a model for thinking. It helps to see the person as a whole and not just the individual symptom.</p>
+        </div>
+      </details>
+      <p class="popup-aktion"><a class="button" href="kontakt-en.html">Book an appointment</a></p>
+    </section>
+    <section class="karte popup" id="text-nutritional-counselling" popover aria-labelledby="titel-nutritional-counselling">
+      <button class="popup-zu" type="button" popovertarget="text-nutritional-counselling" popovertargetaction="hide" aria-label="Close"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+      <h2 id="titel-nutritional-counselling">Naturopathic nutritional counselling</h2>
+      <p>Ancient knowledge and new insights for a lasting change</p>
+      <p>What we eat accompanies us every day. A suitable diet can strengthen you and support your body in its natural processes. There is no single right diet for everyone.</p>
+      <p>In my nutritional counselling I combine two perspectives. The first comes from the <a href="#humoral-medicine-nutrition">humoral medicine</a> of Traditional European Naturopathy (TEN). According to its understanding, foods also have particular qualities. They have a warming or cooling, moistening or drying effect. Spices, the way food is prepared and the season also play a role.</p>
+      <p>The second perspective comes from current nutritional science. It shows what nutrients such as protein, fats, vitamins and minerals do in the body and how meals affect blood sugar. It also shows how important a healthy gut is for overall well-being. This knowledge flows into my counselling just as much as tradition does.</p>
+      <p>At the beginning we take time for a detailed conversation. We look at your eating habits, your daily life, your complaints and your goals. From this we develop steps together that fit well into your life. It is not about strict rules or crash diets, but about a change you are happy to keep up.</p>
+      <p>Food that brings joy can nourish you on every level.</p>
+      <!-- Akkordeon: klappt beim Klicken auf (geht ohne JavaScript) -->
+      <details class="mehr" id="humoral-medicine-nutrition">
+        <summary>Humoral medicine</summary>
+        <div class="mehr-inhalt">
+          <p>Humoral medicine, also known as the theory of the four humours, is one of Europe’s oldest healing concepts. It goes back to the Greek physician Hippocrates and was later developed further by the Roman physician Galen. It shaped European medicine until the 19th century.</p>
+          <p>According to this theory, four fluids are at work in the body: blood, phlegm, yellow bile and black bile. Each fluid has particular qualities and is warm or cold, moist or dry. When the fluids are in balance, we feel well. If this balance is disturbed, complaints can arise according to traditional understanding.</p>
+          <p>Which fluid predominates in a person shapes their constitution, their temperament:</p>
+          <dl class="formen">
+            <dt>Sanguine (blood)</dt>
+            <dd>warm and moist, cheerful and sociable</dd>
+            <dt>Choleric (yellow bile)</dt>
+            <dd>warm and dry, energetic and passionate</dd>
+            <dt>Melancholic (black bile)</dt>
+            <dd>cold and dry, profound and careful</dd>
+            <dt>Phlegmatic (phlegm)</dt>
+            <dd>cold and moist, calm and balanced</dd>
+          </dl>
+          <p>Plants have these qualities too. Ginger, for example, warms and dries, whereas mallow cools and moistens. This allows me to restore balance in a targeted way: someone who carries too much cold within them will tend to receive warming plants.</p>
+          <p>Today we no longer understand the four humours literally, but as a model for thinking. It helps to see the person as a whole and not just the individual symptom.</p>
+        </div>
+      </details>
+      <p class="popup-aktion"><a class="button" href="kontakt-en.html">Book an appointment</a></p>
+    </section>
+  </main>
+
+  <!-- Unten rechts -->
+  <footer class="site-footer">
+    <p>© <span id="jahr">2026</span> Sharleena</p>
+    <ul class="footer-links">
+      <li><a href="impressum-en.html">Legal notice</a></li>
+      <li><a href="datenschutz-en.html">Privacy policy</a></li>
+    </ul>
+  </footer>
+</body>
+</html>
